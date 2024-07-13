@@ -1,9 +1,0 @@
-POST https://api.openai.com/v1/embeddings
-Content-Type: application/json
-Authorization: Bearer sk-proj-LlvYRlHrdAYtWTJvR21ZT3BlbkFJBhkPzsig6Jr5cJ8ClOdi
-
-{
-  "model": "text-embedding-ada-002",
- 
-  "input": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
-}
