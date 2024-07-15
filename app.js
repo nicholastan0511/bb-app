@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const generateVerse = require('./utils/gemini')
+const { generateVerse, errorTest } = require('./utils/gemini')
 const path = require('path')
 const cors = require('cors')
 
@@ -19,9 +19,8 @@ app.get('/api/verse', async (req, res) => {
       let result = await generateVerse(queryParams.mood)
       res.send(result)
     } catch (err) {
-      console.log(err.message)
+      res.status(500).send({ error: err.message, statusCode: 500 })
     }
- 
   }
 })
 
@@ -31,6 +30,16 @@ app.get('*', (req, res) => {
  
 });
 
+// app.get('/error', async (req, res) => {
+//   try {
+//     let result = await errorTest()
+//     res.send(result)
+//   } catch (err) {
+//     console.log(err)
+//     res.status(500).send({ error: err.message, statusCode: 500 })
+//   }
+
+// })
 
 module.exports = app;
 

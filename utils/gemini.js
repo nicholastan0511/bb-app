@@ -48,4 +48,11 @@ const generateVerse = async (category) => {
   return result.response.text()
 }
 
-module.exports = generateVerse
+const errorTest = async () => {
+  let prompt = `give me an error`
+  let result = await model.generateContent(prompt)
+  console.log(result)
+  return result.response.text()
+}
+
+module.exports = { generateVerse, errorTest }

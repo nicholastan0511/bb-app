@@ -8,11 +8,13 @@ import './styles/tailwind.css'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit'
 import verseSlice from './reducers/verseReducer'
+import errorSlice from './reducers/errorReducer'
 import { Provider } from 'react-redux'
 
 const store = configureStore({
   reducer: {
-    verses: verseSlice
+    verses: verseSlice,
+    error: errorSlice
   }
 })
 

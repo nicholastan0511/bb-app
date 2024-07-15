@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import verseService from "../services/verse";
+import { setError, resetError } from "./errorReducer";
 
 const verseSlice = createSlice({
   name: 'verses',
@@ -18,8 +19,16 @@ export const { setOneVerse, resetVerse } = verseSlice.actions
 
 export const fetchOneVerse = (mood) => {
   return async dispatch => {
-    const verse = await verseService.fetchRandomVerse(mood)
-    dispatch(setOneVerse(verse))
+    try {
+      const verse = await verseService.fetchRandomVerse(mood)
+      dispatch(setOneVerse(verse))
+    } catch (err) {
+      dispatch(setError(err.message))
+      setTimeout(() => {
+        dispatch(resetError())
+      }, 5000)
+    }
+
   }
 }
 

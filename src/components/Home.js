@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 // import components
 import Hero from "./Hero";
 import MoodSection from "./MoodSection";
+import Error from "./Error";
 
 const moodList = [
   { mood: "motivated", emoji: "💪" },
@@ -18,9 +20,11 @@ const moodList = [
 ];
 
 const Home = () => {
+  const error = useSelector(state => state.error)
 
   return (
     <div>
+      { error.length > 0 ? <Error message={error} /> : null }
       <Hero />
       <MoodSection moodList={moodList} />
     </div>
