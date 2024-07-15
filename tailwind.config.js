@@ -12,15 +12,23 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          "primary": "#da00ff",         
-          "secondary": "#0083f5",         
-          "accent": "#be0000",          
-          "neutral": "#0b0b0b",          
-          "base-100": "#2a1f2d",          
-          "info": "#009fe6",            
-          "success": "#5bbf00",                 
-          "warning": "#ffc200",              
-          "error": "#ed314f",
+          "primary": "#0065ff",
+                
+          "secondary": "#008100",
+                    
+          "accent": "#0047ff",
+                    
+          "neutral": "#1f1b03",
+                    
+          "base-100": "#2d2728",
+                    
+          "info": "#0073ff",
+                    
+          "success": "#00a600",
+                    
+          "warning": "#f66f00",
+                    
+          "error": "#c02446",
         },
       },
     ],

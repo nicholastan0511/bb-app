@@ -1,36 +1,28 @@
-import React, {useRef} from "react";
-import verseService from '../services/verse'
-import { useState } from "react";
-import { Link } from 'react-scroll';
+import React from "react";
 
-// components
+// import components
 import Hero from "./Hero";
 import MoodSection from "./MoodSection";
 
 const moodList = [
-  "motivated", "joyful", "grateful", "peaceful", "hopeful",
-  "inspired", "content", "optimistic", "energetic", "blessed"
+  { mood: "motivated", emoji: "💪" },
+  { mood: "joyful", emoji: "😄" },
+  { mood: "grateful", emoji: "🙏" },
+  { mood: "peaceful", emoji: "😌" },
+  { mood: "hopeful", emoji: "🌟" },
+  { mood: "inspired", emoji: "🌼" },
+  { mood: "content", emoji: "😊" },
+  { mood: "optimistic", emoji: "😃" },
+  { mood: "energetic", emoji: "🚀" },
+  { mood: "blessed", emoji: "🙌" }
 ];
 
 const Home = () => {
-  const [verse, setVerse] = useState(null)
-
-  const handleClick = async (mood) => {
-    try {
-      const result = await verseService.fetchRandomVerse(mood)
-      setVerse(result)
-    } catch (e) {
-      console.log(e)
-    } 
-  }
 
   return (
     <div>
       <Hero />
-      <MoodSection handleClick={handleClick} moodList={moodList} />
-      <section>
-        {verse ? verse.text : null}
-      </section>
+      <MoodSection moodList={moodList} />
     </div>
   )
 }

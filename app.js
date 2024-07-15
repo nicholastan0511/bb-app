@@ -15,13 +15,20 @@ app.get('/api', (req, res) => {
 app.get('/api/verse', async (req, res) => {
   const queryParams = req.query 
   if (queryParams.mood) {
-    let result = await generateVerse(queryParams.mood)
-    res.send(result)
+    try {
+      let result = await generateVerse(queryParams.mood)
+      res.send(result)
+    } catch (err) {
+      console.log(err.message)
+    }
+ 
   }
 })
 
 app.get('*', (req, res) => {
+  res.redirect(301, '/')
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+ 
 });
 
 
