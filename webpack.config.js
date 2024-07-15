@@ -4,7 +4,10 @@ const webpack = require('webpack')
 const config = (env, argv) => {
   console.log('argv.mode:', argv.mode)
 
-  const backend_url = 'http://localhost:3001/api'
+  const backend_url = argv.mode === 'development' 
+    ? 'http://localhost:3001/api'
+    : '/api'
+
   return {
     entry: './src/index.js',
     output: {
