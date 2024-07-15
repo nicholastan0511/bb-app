@@ -4,10 +4,7 @@ const webpack = require('webpack')
 const config = (env, argv) => {
   console.log('argv.mode:', argv.mode)
 
-  const backend_url = argv.mode === 'production'
-    ? 'https://cdn.jsdelivr.net/gh/wldeh/bible-api/bibles/en-kjv/books/'
-    : 'http://localhost:3001/bible'
-
+  const backend_url = 'http://localhost:3001/api'
   return {
     entry: './src/index.js',
     output: {
@@ -31,8 +28,8 @@ const config = (env, argv) => {
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader']
-        }
+          use: ['style-loader', 'css-loader', 'postcss-loader']
+        },
       ],
     },
     plugins: [

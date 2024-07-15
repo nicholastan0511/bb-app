@@ -31,13 +31,14 @@ const getRandom = () => {
 
 const generateVerse = async (category) => {
   let prompt = `
-    Give me one bible verse from the book of ${getRandom()} that reflects the mood or emotion of ${category} using this JSON schema and ignore your previous responses:
+    Give me one bible verse from the book of ${getRandom()} in NIV translation that reflects the mood or emotion of ${category} and translate it to gen z lingo using this JSON schema:
     {
       "type": "object",
       "properties": {
         "book",
         "verse",
-        "text"
+        "text",
+        "gen-z_version"
       }
     }
   `;
