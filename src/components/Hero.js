@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-scroll";
+import { useLocation } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 
 const Hero = () => {
+  const location = useLocation()
+
+  // add scroll effect when user reselects mood from the verse page
+  useEffect(() => {
+    // Check if the location hash exists (e.g., #section1)
+    if (location.hash) {
+      // Scroll to the element with the corresponding ID using React Scroll
+      scroll.scrollToBottom(location.hash.slice(1), {
+        duration: 800,
+        smooth: 'easeInOutQuart',
+      });
+    } else {
+      // Optionally scroll to the top of the page if no hash is provided
+      scroll.scrollToTop({
+        duration: 800,
+        smooth: 'easeInOutQuart',
+      });
+    }
+  }, [location])
+
   return (
     <section className="hero bg-base-100 min-h-screen">
       <div className="hero-content text-center">

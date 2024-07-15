@@ -16,7 +16,6 @@ const MoodSection = ({ moodList }) => {
     } 
   }
 
-
   return(    
     <section id="mood-section" className="transition-all duration-300 ease-linear min-h-screen flex flex-col justify-center items-center bg-base-content gap-20">
       <div className="bg-base-100 p-10 text-white flex items-center rounded-xl">

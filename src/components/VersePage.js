@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetVerse, fetchOneVerse } from "../reducers/verseReducer";
 import { useLocation } from "react-router-dom";
-import Error from "./Error";
 
 const moodList = [
   { mood: "motivated", emoji: "💪" },
@@ -30,7 +29,7 @@ const VersePage = () => {
 
   const handleReselect = () => {
     dispatch(resetVerse())
-    navigate('/')
+    navigate('/#mood-section')
   }
 
   const handleRefetch = () => {
