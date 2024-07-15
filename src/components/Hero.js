@@ -26,17 +26,20 @@ const Hero = () => {
 
   return (
     <section className="hero bg-base-100 min-h-screen">
-      <div className="hero-content text-center">
-        <div className="max-w-md">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <img
+          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
+          className="max-w-sm rounded-lg shadow-2xl" />
+        <div>
           <h1 className="text-5xl font-bold">
-          Discover Divine Wisdom Tailored to Your Mood
-          <label className="swap swap-flip text-5xl">
-            {/* this hidden checkbox controls the state */}
-            <input type="checkbox" />
+              Discover Divine Wisdom Tailored to Your Mood
+              <label className="swap swap-flip text-5xl">
+                {/* this hidden checkbox controls the state */}
+                <input type="checkbox" />
 
-          <div className="swap-on">⚡</div>
-          <div className="swap-off">❤️‍🔥</div>
-          </label>
+                <div className="swap-on">⚡</div>
+                <div className="swap-off">❤️‍🔥</div>
+              </label>  
           </h1>
           <p className="py-6">
             How are you feeling right now?
