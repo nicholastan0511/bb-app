@@ -29,7 +29,7 @@ const MoodSection = ({ moodList }) => {
           </label>
         </h1>
       </div>
-      <div className="flex justify-center items-center flex-wrap gap-10 m-20">
+      <div className="flex justify-center items-center flex-wrap gap-10 m-20 max-w-screen-2xl">
         { moodList.map(mood => 
             <button className='btn btn-wide btn-lg hover:shadow-cyan-950 hover:rounded-none uppercase hover:scale-110 hover:bg-opacity-100 transition-all duration-300 text-2xl bg-opacity-85' key={mood.mood} onClick={() => handleClick(mood.mood)}>{mood.mood} {mood.emoji}</button>)
         }
