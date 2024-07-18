@@ -1,8 +1,9 @@
 const express = require('express')
 const app = express()
-const { generateVerse, errorTest } = require('./utils/gemini')
+const { generateVerse } = require('./utils/gemini')
 const path = require('path')
 const cors = require('cors')
+const tts = require('./utils/tts')
 
 app.use(express.static('build'))
 app.use(express.json())
@@ -24,11 +25,27 @@ app.get('/api/verse', async (req, res) => {
   }
 })
 
+app.post('/api/verse/audio', async (req, res) => {
+  const text = req.body.text
+  try {
+    const audio = await tts(text)
+    res.send(audio)
+  } catch(error) {
+    console.log(error)
+  }
+
+
+  // console.log(audio)
+
+  
+})  
+
+
 app.get('*', (req, res) => {
   res.redirect(301, '/')
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
- 
 });
+
 
 // app.get('/error', async (req, res) => {
 //   try {

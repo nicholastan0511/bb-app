@@ -5,6 +5,13 @@ const fetchRandomVerse = async (mood) => {
   return result.data
 }
 
+const getVerseAudio = async (text) => {
+  const result = await axios.post(`${BACKEND_URL}/verse/audio`, { text }, { responseType: 'arraybuffer' })
+
+  return result.data
+}
+
 export default {
-  fetchRandomVerse
+  fetchRandomVerse,
+  getVerseAudio
 }

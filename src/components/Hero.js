@@ -28,7 +28,9 @@ const Hero = () => {
 
   return (
     <section className="hero bg-base-100 min-h-screen snap-start">
+       
       <div className="hero-content flex-col lg:flex-row-reverse w-3/4 bg-base-200 p-20 rounded-2xl md:my-10">
+      
         <label className="swap swap-flip text-5xl">
           {/* this hidden checkbox controls the state */}
           <input type="checkbox" />
