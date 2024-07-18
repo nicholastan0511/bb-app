@@ -24,6 +24,7 @@ const VersePage = () => {
   const dispatch = useDispatch()
   const location = useLocation()
   const [genz , setGenZ] = useState(false)
+  const [context, setContext] = useState(false)
 
   const mood = new URLSearchParams(location.search).get('mood')
 
@@ -42,6 +43,11 @@ const VersePage = () => {
   const handleGetGenZ = () => {
     if (!genz)
       setGenZ(true)
+  }
+
+  const handleGetContext = () => {
+    if (!context)
+      setContext(true)
   }
 
   
@@ -69,22 +75,54 @@ const VersePage = () => {
         <input type="checkbox" className="peer" />
         <div
           className="p-8 collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content flex justify-between gap-10">
-          <div className="flex flex-col justify-start gap-5 flex-grow">
-            <p className="text-xl">"{verse.text}"</p>  
-            <p className="italic">{verse.book} {verse.verse}</p>
+          <div className="flex flex-col justify-center items-center gap-5 flex-grow">
+            <p className="text-xl text-center">{verse.text}</p>  
+            <p className="italic text-center">{verse.book} {verse.verse}</p>       
           </div>
+          
+          <div className="tooltip z-50" data-tip="Click Me!">
+          </div>
+          
           { genz ? 
             <div className="flex flex-col justify-start gap-5 flex-grow">
-              <p className="text-xl">{verse['gen-z_version']} </p> 
-              <p className="italic">Gen-Z Version</p>
+              <p className="text-xl text-center">{verse['gen-z_version']} </p> 
+              <p className="italic text-center">Gen-Z Version</p>
             </div>
             : null }
         </div>
         <div
-          className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content flex justify-around gap-5">
-          <button className="btn btn-primary lg:btn-wide sm:btn-sm" onClick={handleReselect}>Reselect mood</button>
-          <button className="btn btn-warning lg:btn-wide text-white sm:btn-sm" onClick={handleRefetch}>Fetch another verse</button>
-          <button className="btn btn-info lg:btn-wide text-white sm:btn-sm" onClick={handleGetGenZ}>Get Gen Z Version</button>
+          className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content peer-checked:pb-6 flex justify-around gap-5">
+          <button className="btn btn-outline lg:btn-wide sm:btn-sm text-2xl" onClick={handleReselect}>Reselect mood</button>
+          <button className="btn btn-outline lg:btn-wide sm:btn-sm text-2xl" onClick={handleRefetch}>Fetch another verse</button>
+          {/* You can open the modal using document.getElementById('ID').showModal() method */}
+          <button className="btn btn-outline lg:btn-wide md:btn-sm text-2xl" onClick={()=>document.getElementById('my_modal_1').showModal()}>Get Gen-Z Version</button>
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box w-11/12 max-w-5xl glass"> 
+              <h3 className="font-bold text-lg">{verse.book} {verse.verse}</h3>
+              <p className="py-4">{verse['gen-z_version']}</p>
+              <div className="modal-action">
+                <form method="dialog">
+                  {/* if there is a button, it will close the modal */}
+                  <button className="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+          {/* You can open the modal using document.getElementById('ID').showModal() method */}
+          <button className="btn btn-outline lg:btn-wide md:btn-sm text-2xl" onClick={()=>document.getElementById('my_modal_2').showModal()}>See context</button>
+          <dialog id="my_modal_2" className="modal">
+            <div className="modal-box w-11/12 max-w-5xl glass"> 
+              <h3 className="font-bold text-lg">{verse.book} {verse.verse}</h3>
+              <p className="py-4">{verse.context}</p>
+              <div className="modal-action">
+                <form method="dialog">
+                  {/* if there is a button, it will close the modal */}
+                  <button className="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+
         </div>
       </div>
     </section>

@@ -17,8 +17,8 @@ const MoodSection = ({ moodList }) => {
   }
 
   return(    
-    <section id="mood-section" className="transition-all duration-300 ease-linear min-h-screen flex flex-col justify-center items-center bg-base-content gap-20">
-      <div className="bg-base-100 p-10 text-white flex items-center gap-5 rounded-xl sm:mt-10 lg:mt-0">
+    <section id="mood-section" className="transition-all duration-300 ease-linear min-h-screen flex flex-col justify-center items-center bg-base-300 gap-20 snap-start">
+      <div className="bg-base-100 p-10 text-white flex items-center gap-5 rounded-xl mt-20">
         <h1 className="text-5xl font-bold text-white-900">Select to Generate a Verse 
  
         </h1>
@@ -28,11 +28,11 @@ const MoodSection = ({ moodList }) => {
 
           <div className="swap-on">📜</div>
           <div className="swap-off">✍️</div>
-          </label>
+        </label>
       </div>
       <div className="flex justify-center items-center flex-wrap gap-10 m-20 max-w-screen-2xl">
         { moodList.map(mood => 
-            <button className='btn btn-wide btn-lg hover:shadow-cyan-950 hover:rounded-none capitalize hover:scale-110 hover:bg-opacity-100 transition-all duration-300 text-xl bg-opacity-85' key={mood.mood} onClick={() => handleClick(mood.mood)}>{mood.mood} {mood.emoji}</button>)
+            <button className='btn btn-wide btn-outline btn-success hover:shadow-cyan-950 capitalize hover:scale-105 hover:bg-opacity-100 transition-all duration-300 text-2xl' key={mood.mood} onClick={() => handleClick(mood.mood)}>{mood.mood} {mood.emoji}</button>)
         }
       </div>
     </section>  

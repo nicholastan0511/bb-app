@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { animateScroll as scroll } from 'react-scroll';
+
 
 // import components
 import Hero from "./Hero";
@@ -26,7 +25,6 @@ const Home = () => {
 
   return (
     <div>
-
       { error.length > 0 ? <Error message={error} /> : null }
       <Hero />
       <MoodSection moodList={moodList} />

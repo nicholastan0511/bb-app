@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* .container {
-  background: linear-gradient(#000000, #130F40);
-  height: 100vh;
-} */
+html {
+  scroll-snap-type: y proximity;
+}
+
