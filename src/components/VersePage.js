@@ -24,7 +24,8 @@ const VersePage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const location = useLocation()
-  const audioRef = useRef(null);
+  const audioRef = useRef(null)
+  const collapseRef = useRef(null)
 
   const [audioExist, setAudioExist] = useState(false)
 
@@ -37,7 +38,10 @@ const VersePage = () => {
     navigate('/#mood-section')
   }
 
-  const handleRefetch = () => {
+  const handleRefetch = (e) => {
+    if (collapseRef.current) {
+      collapseRef.current.focus();
+    }
     dispatch(resetVerse())
     dispatch(fetchOneVerse(mood))
     setAudioExist(false)
@@ -94,10 +98,10 @@ const VersePage = () => {
         </div>
         <div
           className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content peer-checked:pb-6 flex justify-around gap-5">
-          <button className="btn btn-outline btn-sm text-md" onClick={handleReselect}>Reselect mood</button>
-          <button className="btn btn-outline btn-sm text-md" onClick={handleRefetch}>Fetch another verse</button>
+          <button className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm" onClick={handleReselect}>Reselect mood</button>
+          <button className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm" onClick={handleRefetch}>Fetch another verse</button>
           {/* You can open the modal using document.getElementById('ID').showModal() method */}
-          <button className="btn btn-outline btn-sm text-md" onClick={()=>document.getElementById('my_modal_1').showModal()}>Get Gen-Z Version</button>
+          <button className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm" onClick={()=>document.getElementById('my_modal_1').showModal()}>Get Gen-Z Version</button>
           <dialog id="my_modal_1" className="modal">
             <div className="modal-box w-11/12 max-w-5xl glass"> 
               <h3 className="font-bold text-lg">{verse.book} {verse.verse}</h3>
@@ -111,7 +115,7 @@ const VersePage = () => {
             </div>
           </dialog>
           {/* You can open the modal using document.getElementById('ID').showModal() method */}
-          <button className="btn btn-outline btn-sm text-md" onClick={()=>document.getElementById('my_modal_2').showModal()}>See context</button>
+          <button className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm" onClick={()=>document.getElementById('my_modal_2').showModal()}>See context</button>
           <dialog id="my_modal_2" className="modal">
             <div className="modal-box w-11/12 max-w-5xl glass"> 
               <h3 className="font-bold text-lg">{verse.book} {verse.verse}</h3>
