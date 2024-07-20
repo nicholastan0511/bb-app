@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const verseRouter = require('./controllers/verseRouter');
+const userRouter = require('./controllers/userRouter');
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/verse', verseRouter);
+app.use('/api/user', userRouter);
 
 app.get('*', (req, res) => {
   res.redirect(301, '/');

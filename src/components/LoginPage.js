@@ -23,7 +23,7 @@ const LoginPage = () => {
   return (
     <>
       <button
-        className="btn btn-outline btn-warning btn-wide"
+        className="btn btn-outline border-2 rounded-xl lg:btn-wide btn-sm lg:text-sm sm:text-xl uppercase"
         onClick={() => document.getElementById('my_modal_5').showModal()}
       >
         Login
