@@ -1,18 +1,17 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
 const config = (env, argv) => {
-  console.log('argv.mode:', argv.mode)
+  console.log('argv.mode:', argv.mode);
 
-  const backend_url = argv.mode === 'development' 
-    ? 'http://localhost:3001/api'
-    : '/api'
+  const backend_url =
+    argv.mode === 'development' ? 'http://localhost:3001/api' : '/api';
 
   return {
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'build'),
-      filename: 'main.js'
+      filename: 'main.js',
     },
     devServer: {
       static: path.resolve(__dirname, 'build'),
@@ -31,7 +30,7 @@ const config = (env, argv) => {
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader', 'postcss-loader']
+          use: ['style-loader', 'css-loader', 'postcss-loader'],
         },
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
@@ -45,10 +44,22 @@ const config = (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        BACKEND_URL: JSON.stringify(backend_url)
-      })
-    ]
-  }
-}
+        BACKEND_URL: JSON.stringify(backend_url),
+        MOOD_LIST: JSON.stringify([
+          { mood: 'motivated', emoji: '💪' },
+          { mood: 'joyful', emoji: '😄' },
+          { mood: 'grateful', emoji: '🙏' },
+          { mood: 'peaceful', emoji: '😌' },
+          { mood: 'hopeful', emoji: '🌟' },
+          { mood: 'inspired', emoji: '🌼' },
+          { mood: 'content', emoji: '😊' },
+          { mood: 'optimistic', emoji: '😃' },
+          { mood: 'energetic', emoji: '🚀' },
+          { mood: 'blessed', emoji: '🙌' },
+        ]),
+      }),
+    ],
+  };
+};
 
-module.exports = config
+module.exports = config;

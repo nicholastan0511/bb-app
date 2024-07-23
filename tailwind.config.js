@@ -9,6 +9,9 @@ module.exports = {
         DEFAULT: '0 2px 4px var(--tw-shadow-color)',
         lg: '0 3px 5px rgba(255, 255, 255, 0.5)',
       },
+      gridTemplateColumns: {
+        stat: 'repeat(auto-fit, minmax(200px, 1fr))',
+      },
     },
   },
   plugins: [

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Link from './Link';
 import homeSvg from '../../assets/home.svg';
 import savedSvg from '../../assets/saved.svg';
@@ -6,14 +7,35 @@ import noteSvg from '../../assets/note.svg';
 import bibleSvg from '../../assets/bible.svg';
 
 const Navbar = ({ user }) => {
+  const [active, setActive] = useState(null);
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  useEffect(() => {
+    if (currentPath === '/dashboard/menu') setActive('menu');
+    else if (currentPath === '/dashboard/versegenerator')
+      setActive('versegenerator');
+    else setActive(null);
+  }, [location]);
+
   return (
-    <div className="max-w-72 h-screen bg-base-100 flex flex-col items-start pt-10 gap-10 relative">
-      <h1 className="p-4 w-full">MoodVerse</h1>
+    <div className="max-w-72 h-screen flex flex-col items-start pt-10 gap-10 relative grow">
+      <h1 className="py-4 pl-8 w-full">MoodVerse</h1>
       <div className="flex flex-col gap-10 w-full">
-        <Link text={'Dashboard'} icon={homeSvg} />
+        <Link
+          text={'Dashboard'}
+          icon={homeSvg}
+          path="/dashboard/menu"
+          active={active === 'menu' ? true : false}
+        />
         <Link text={'Saved Verses'} icon={savedSvg} />
         <Link text={'Notes'} icon={noteSvg} />
-        <Link text={'Verse Generator'} icon={bibleSvg} />
+        <Link
+          text={'Verse Generator'}
+          icon={bibleSvg}
+          path="/dashboard/versegenerator"
+          active={active === 'versegenerator' ? true : false}
+        />
       </div>
       <div className="avatar absolute bottom-5 flex items-center justify-around gap-2 w-full">
         <div className="w-10 rounded-full">

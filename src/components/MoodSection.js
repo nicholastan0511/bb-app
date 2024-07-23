@@ -17,9 +17,9 @@ const MoodSection = ({ moodList }) => {
   };
 
   return (
-    <section
+    <div
       id="mood-section"
-      className="transition-all duration-300 ease-linear min-h-screen flex flex-col justify-center items-center bg-black gap-20 snap-start"
+      className="transition-all duration-300 ease-linear h-screen flex flex-col justify-center items-center bg-stone-900 gap-20 snap-start grow"
     >
       <div className="bg-base-100 bg-opacity-50 p-10 text-white flex items-center gap-5 rounded-xl mt-20">
         <h1 className="text-5xl font-bold text-white-900">
@@ -33,10 +33,10 @@ const MoodSection = ({ moodList }) => {
           <div className="swap-off">✍️</div>
         </label>
       </div>
-      <div className="flex justify-center items-center flex-wrap gap-10 m-20 max-w-screen-2xl">
+      <div className="flex justify-center items-center flex-wrap gap-10 max-w-screen-md 2xl:max-w-screen-2xl">
         {moodList.map((mood) => (
           <button
-            className="btn btn-wide btn-outline btn-success hover:shadow-cyan-950 capitalize hover:scale-105 hover:bg-opacity-100 transition-all duration-300 text-2xl"
+            className="btn btn-wide btn-outline hover:shadow-cyan-950 capitalize hover:scale-105 hover:bg-opacity-100 transition-all duration-300 text-2xl"
             key={mood.mood}
             onClick={() => handleClick(mood.mood)}
           >
@@ -44,7 +44,7 @@ const MoodSection = ({ moodList }) => {
           </button>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

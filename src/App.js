@@ -33,7 +33,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/*" element={<Navigate replace to="/" />} />
         <Route path="/verse" element={<VersePage />} />
-        <Route path="/dashboard" element={<Dashboard user={user} />} />
+        <Route path="/dashboard/*" element={<Dashboard user={user} />} />
       </Routes>
     </div>
   );
