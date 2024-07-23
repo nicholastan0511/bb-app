@@ -9,12 +9,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import verseSlice from './reducers/verseReducer';
 import errorSlice from './reducers/errorReducer';
+import userSlice from './reducers/userReducer';
 import { Provider } from 'react-redux';
 
 const store = configureStore({
   reducer: {
     verses: verseSlice,
     error: errorSlice,
+    user: userSlice,
   },
 });
 

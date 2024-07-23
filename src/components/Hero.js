@@ -32,7 +32,7 @@ const Hero = () => {
     <section className="bg-base-100 w-screen min-h-screen snap-start flex justify-center">
       <div className="bg-black flex items-center sm:flex-col sm:justify-center lg:flex-row-reverse lg:justify-around p-32 gap-10 relative">
         <div className="navbar absolute top-10 z-49 flex justify-between px-20">
-          <a className="btn btn-ghost lg:text-md sm:text-xl uppercase text-secondary text-bold">
+          <a className="btn btn-ghost lg:text-md sm:text-xl uppercase font-extrabold">
             MoodVerse
           </a>
           <div className="gap-5">

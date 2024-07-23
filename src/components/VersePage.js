@@ -62,7 +62,7 @@ const VersePage = () => {
     }
   };
 
-  if (error.length > 0) {
+  if (error && error.type === 'serverError') {
     navigate('/');
   }
 

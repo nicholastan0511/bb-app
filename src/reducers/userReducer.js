@@ -10,6 +10,7 @@ const userSlice = createSlice({
       return action.payload;
     },
     signOut: (state, action) => {
+      localStorage.clear();
       return {};
     },
   },
@@ -24,6 +25,7 @@ export const handleUserSignUp = (creds) => {
     try {
       const result = await userService.signUp(creds);
       dispatch(setUser(result));
+      localStorage.setItem('loggedUserInfo', result);
     } catch (err) {
       dispatch(
         setError({
@@ -43,6 +45,7 @@ export const handleUserLogin = (creds) => {
     try {
       const result = await userService.login(creds);
       dispatch(setUser(result));
+      localStorage.setItem('loggedUserInfo', JSON.stringify(result));
     } catch (err) {
       dispatch(
         setError({
