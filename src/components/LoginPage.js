@@ -1,21 +1,29 @@
 import React from 'react';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { handleUserLogin } from '../reducers/userReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import Error from './Error';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.error);
+
   // schema for yup validation
   const schema = yup.object().shape({
     username: yup.string().required('Username is required'),
     password: yup.string().required('Password is required'),
   });
 
+  // state for inputs
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      const { username, password } = values;
+      dispatch(handleUserLogin({ username, password }));
     },
     validationSchema: schema,
   });
@@ -33,6 +41,7 @@ const LoginPage = () => {
         className="modal modal-bottom sm:modal-middle glass"
       >
         <div className="modal-box w-full max-w-xs bg-white">
+          {error && error.type === 'userError' ? <Error error={error} /> : null}
           <form
             className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
             onSubmit={formik.handleSubmit}

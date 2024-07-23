@@ -1,9 +1,12 @@
 import React from 'react';
-import userService from '../services/user';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { handleUserSignUp } from '../reducers/userReducer';
 
 const SignupPage = () => {
+  const dispatch = useDispatch();
+
   // schema for yup validation
   const schema = yup.object().shape({
     usernameSignup: yup.string().required('Username is required'),
@@ -14,6 +17,7 @@ const SignupPage = () => {
       .required('Password is required'),
   });
 
+  // state for inputs
   const formik = useFormik({
     initialValues: {
       usernameSignup: '',
@@ -21,13 +25,13 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     onSubmit: async (values) => {
-      console.log('im called');
       const { usernameSignup, passwordSignup } = values;
-      const result = await userService.signUp({
-        username: usernameSignup,
-        password: passwordSignup,
-      });
-      console.log(result.data);
+      dispatch(
+        handleUserSignUp({
+          username: usernameSignup,
+          password: passwordSignup,
+        })
+      );
     },
     validationSchema: schema,
   });

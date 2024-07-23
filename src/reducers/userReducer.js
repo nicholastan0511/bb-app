@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import userService from '../services/user';
-import { setError } from './errorReducer';
+import { resetError, setError } from './errorReducer';
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: '',
+  initialState: {},
   reducers: {
     setUser: (state, action) => {
       return action.payload;
     },
     signOut: (state, action) => {
-      return '';
+      return {};
     },
   },
 });
@@ -25,7 +25,15 @@ export const handleUserSignUp = (creds) => {
       const result = await userService.signUp(creds);
       dispatch(setUser(result));
     } catch (err) {
-      dispatch(setError(err.message));
+      dispatch(
+        setError({
+          message: err.response.data.error,
+          type: 'userError',
+        })
+      );
+      setTimeout(() => {
+        resetError();
+      }, 5000);
     }
   };
 };
@@ -36,7 +44,15 @@ export const handleUserLogin = (creds) => {
       const result = await userService.login(creds);
       dispatch(setUser(result));
     } catch (err) {
-      dispatch(setError(err.message));
+      dispatch(
+        setError({
+          message: err.response.data.error,
+          type: 'userError',
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetError());
+      }, 5000);
     }
   };
 };

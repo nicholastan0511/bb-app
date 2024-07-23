@@ -23,7 +23,12 @@ export const fetchOneVerse = (mood) => {
       const verse = await verseService.fetchRandomVerse(mood);
       dispatch(setOneVerse(verse));
     } catch (err) {
-      dispatch(setError(err.message));
+      dispatch(
+        setError({
+          message: err.response.data.error,
+          type: 'serverError',
+        })
+      );
       setTimeout(() => {
         dispatch(resetError());
       }, 5000);

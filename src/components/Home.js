@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <div className="relative">
-      {error.length > 0 ? <Error message={error} /> : null}
+      {error && error.type === 'serverError' ? <Error error={error} /> : null}
       <Hero />
       <MoodSection moodList={moodList} />
     </div>
