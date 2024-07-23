@@ -23,7 +23,7 @@ const Home = () => {
   const error = useSelector((state) => state.error);
 
   return (
-    <div className="bg-base-100">
+    <div className="relative">
       {error.length > 0 ? <Error message={error} /> : null}
       <Hero />
       <MoodSection moodList={moodList} />

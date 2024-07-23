@@ -30,9 +30,9 @@ const Hero = () => {
 
   return (
     <section className="bg-base-100 w-screen min-h-screen snap-start flex justify-center">
-      <div className="bg-black flex items-center sm:flex-col sm:justify-center lg:flex-row-reverse lg:justify-around p-20 gap-10 relative">
-        <div className="navbar absolute top-10 z-50 flex justify-between px-20">
-          <a className="btn btn-ghost lg:text-sm sm:text-xl uppercase">
+      <div className="bg-black flex items-center sm:flex-col sm:justify-center lg:flex-row-reverse lg:justify-around p-32 gap-10 relative">
+        <div className="navbar absolute top-10 z-49 flex justify-between px-20">
+          <a className="btn btn-ghost lg:text-md sm:text-xl uppercase">
             MoodVerse
           </a>
           <div className="gap-5">
@@ -52,11 +52,11 @@ const Hero = () => {
             </div>
           </label>
         </div>
-        <div className="flex flex-col lg:items-start sm:items-center">
-          <h1 className="text-5xl font-bold sm:text-center lg:text-left">
+        <div className="flex flex-col lg:items-start sm:items-center gap-8">
+          <h1 className="text-5xl font-bold sm:text-center lg:text-left text-shadow-lg">
             Discover Divine Wisdom Tailored to Your Mood
           </h1>
-          <p className="py-6 text-l text-stone-500 font-semibold sm:text-center lg:text-start">
+          <p className="py-6 text-xl text-stone-400 font-semibold sm:text-center lg:text-start">
             Welcome to MoodVerse, your personalized Bible verse generator
             tailored to your emotions. Whether you’re feeling joyful, anxious,
             motivated, or in need of comfort, MoodVerse is here to provide the

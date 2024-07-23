@@ -1,36 +1,34 @@
-import { createSlice } from "@reduxjs/toolkit";
-import verseService from "../services/verse";
-import { setError, resetError } from "./errorReducer";
+import { createSlice } from '@reduxjs/toolkit';
+import verseService from '../services/verse';
+import { setError, resetError } from './errorReducer';
 
 const verseSlice = createSlice({
   name: 'verses',
   initialState: [],
   reducers: {
     setOneVerse: (state, action) => {
-      return action.payload
+      return action.payload;
     },
     resetVerse: (state, action) => {
-      return []
-    }
-  }
-})
+      return [];
+    },
+  },
+});
 
-export const { setOneVerse, resetVerse } = verseSlice.actions
+export const { setOneVerse, resetVerse } = verseSlice.actions;
 
 export const fetchOneVerse = (mood) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const verse = await verseService.fetchRandomVerse(mood)
-      dispatch(setOneVerse(verse))
+      const verse = await verseService.fetchRandomVerse(mood);
+      dispatch(setOneVerse(verse));
     } catch (err) {
-      dispatch(setError(err.message))
+      dispatch(setError(err.message));
       setTimeout(() => {
-        dispatch(resetError())
-      }, 5000)
+        dispatch(resetError());
+      }, 5000);
     }
+  };
+};
 
-  }
-}
-
-export default verseSlice.reducer
-
+export default verseSlice.reducer;
