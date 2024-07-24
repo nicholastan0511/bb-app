@@ -23,7 +23,7 @@ export const fetchOneVerse = (mood) => {
     try {
       const verse = await verseService.fetchRandomVerse(mood);
       dispatch(setOneVerse(verse));
-      dispatch(handleUserGenerateVerse());
+      // dispatch(handleUserGenerateVerse());
     } catch (err) {
       dispatch(
         setError({

@@ -5,7 +5,13 @@ const Stats = ({ title, value, desc }) => {
     <div className="stats shadow border border-stone-700">
       <div className="stat">
         <div className="stat-title">{title}</div>
-        <div className="stat-value">{value}</div>
+        <div className="stat-value">
+          {!value ? (
+            <span className="loading loading-ring loading-sm"></span>
+          ) : (
+            value
+          )}
+        </div>
         <div className="stat-desc">{desc}</div>
       </div>
     </div>

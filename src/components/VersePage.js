@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { resetVerse, fetchOneVerse } from '../reducers/verseReducer';
 import { useLocation } from 'react-router-dom';
 import verseService from '../services/verse';
+import { handleUserGenerateVerse } from '../reducers/userStatsReducer';
 
 const moodList = [
   { mood: 'motivated', emoji: '💪' },
@@ -30,6 +31,11 @@ const VersePage = ({ user }) => {
   useEffect(() => {
     if (verse.length !== 0) dispatch(resetVerse());
   }, [location]);
+
+  useEffect(() => {
+    if (verse.length !== 0 && user && user.token)
+      dispatch(handleUserGenerateVerse());
+  }, []);
 
   const [audioExist, setAudioExist] = useState(false);
 

@@ -7,6 +7,7 @@ const loginRouter = require('./controllers/loginRouter');
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const middleware = require('./utils/middleware');
 
 // Start MongoDB
 mongoose.set('strictQuery', false);
@@ -26,6 +27,9 @@ app.use(cors());
 app.use('/api/verse', verseRouter);
 app.use('/api/user', userRouter);
 app.use('/api/login', loginRouter);
+
+app.use(middleware.errorHandler);
+app.use(middleware.unknownEndpoint);
 
 app.get('*', (req, res) => {
   res.redirect(301, '/');

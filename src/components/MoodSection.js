@@ -12,7 +12,7 @@ const MoodSection = ({ moodList }) => {
 
   const handleClick = async (mood) => {
     dispatch(fetchOneVerse(mood));
-    if (user) {
+    if (user && user.token) {
       navigate(`/dashboard/verse?mood=${mood}`);
     } else {
       navigate(`/verse?mood=${mood}`);

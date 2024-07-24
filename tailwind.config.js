@@ -12,6 +12,9 @@ module.exports = {
       gridTemplateColumns: {
         stat: 'repeat(auto-fit, minmax(200px, 1fr))',
       },
+      backgroundImage: {
+        'my-img': 'url(/src/assets/bg.jpg)',
+      },
     },
   },
   plugins: [

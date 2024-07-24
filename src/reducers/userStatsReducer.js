@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import userService from '../services/user';
+import { setError, resetError } from './errorReducer';
 
 const userSlice = createSlice({
   name: 'userStats',

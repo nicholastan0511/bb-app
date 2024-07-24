@@ -6,6 +6,8 @@ import aiImg1 from '../assets/ai_img_1.jpg';
 import aiImg2 from '../assets/ai_img_2.jpg';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
+import bgImg from '../assets/bg.jpg';
+import topoSvg from '../assets/topography.svg';
 
 const Hero = () => {
   const location = useLocation();
@@ -29,8 +31,11 @@ const Hero = () => {
   }, [location]);
 
   return (
-    <section className="bg-base-100 w-screen min-h-screen snap-start flex justify-center">
-      <div className="bg-stone-900 flex items-center sm:flex-col sm:justify-center lg:flex-row-reverse lg:justify-around p-32 gap-10 relative">
+    <section
+      className="bg-stone-800 w-screen min-h-screen snap-start flex justify-center"
+      style={{ backgroundImage: `url(${topoSvg})` }}
+    >
+      <div className="flex items-center sm:flex-col sm:justify-center lg:flex-row-reverse lg:justify-around p-32 gap-20 relative">
         <div className="navbar absolute top-10 z-49 flex justify-between px-20">
           <a className="btn btn-ghost lg:text-md sm:text-xl uppercase font-extrabold">
             MoodVerse
@@ -52,9 +57,9 @@ const Hero = () => {
             </div>
           </label>
         </div>
-        <div className="flex flex-col lg:items-start sm:items-center gap-8">
-          <h1 className="text-5xl font-bold sm:text-center lg:text-left text-shadow-lg">
-            Discover Divine Wisdom Tailored to Your Mood
+        <div className="flex flex-col lg:items-start sm:items-center gap-8 max-w-screen-lg">
+          <h1 className="text-5xl font-bold sm:text-center lg:text-left">
+            Discover Divine Wisdom, Tailored to Your Mood
           </h1>
           <p className="py-6 text-xl text-stone-400 font-semibold sm:text-center lg:text-start">
             Welcome to MoodVerse, your personalized Bible verse generator
