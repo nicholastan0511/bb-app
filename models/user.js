@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     minLength: 3,
   },
   savedVerses: [savedVerseSchema],
+  generatedVerseCount: {
+    type: Number,
+    required: false,
+  },
 });
 
 userSchema.plugin(uniqueValidator);

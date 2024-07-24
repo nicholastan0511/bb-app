@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import verseService from '../services/verse';
 import { setError, resetError } from './errorReducer';
+import { handleUserGenerateVerse } from './userStatsReducer';
 
 const verseSlice = createSlice({
   name: 'verses',
@@ -22,6 +23,7 @@ export const fetchOneVerse = (mood) => {
     try {
       const verse = await verseService.fetchRandomVerse(mood);
       dispatch(setOneVerse(verse));
+      dispatch(handleUserGenerateVerse());
     } catch (err) {
       dispatch(
         setError({

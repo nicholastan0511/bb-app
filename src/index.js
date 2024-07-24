@@ -10,6 +10,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import verseSlice from './reducers/verseReducer';
 import errorSlice from './reducers/errorReducer';
 import userSlice from './reducers/userReducer';
+import userStatsSlice from './reducers/userStatsReducer';
 import { Provider } from 'react-redux';
 
 const store = configureStore({
@@ -17,6 +18,7 @@ const store = configureStore({
     verses: verseSlice,
     error: errorSlice,
     user: userSlice,
+    userStats: userStatsSlice,
   },
 });
 

@@ -18,23 +18,18 @@ const moodList = [
   { mood: 'blessed', emoji: '🙌' },
 ];
 
-const VersePage = () => {
+const VersePage = ({ user }) => {
   const error = useSelector((state) => state.error);
   const verse = useSelector((state) => state.verses);
-  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const audioRef = useRef(null);
   const collapseRef = useRef(null);
 
-  console.log(user);
-
   useEffect(() => {
     if (verse.length !== 0) dispatch(resetVerse());
   }, [location]);
-
-  console.log(verse);
 
   const [audioExist, setAudioExist] = useState(false);
 

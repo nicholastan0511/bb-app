@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Link from './Link';
 import homeSvg from '../../assets/home.svg';
-import savedSvg from '../../assets/saved.svg';
-import noteSvg from '../../assets/note.svg';
+// import savedSvg from '../../assets/saved.svg';
+// import noteSvg from '../../assets/note.svg';
 import bibleSvg from '../../assets/bible.svg';
 import logoutSvg from '../../assets/logout.svg';
 
@@ -26,6 +26,7 @@ const Navbar = ({ user }) => {
     if (currentPath === '/dashboard/menu') setActive('menu');
     else if (currentPath === '/dashboard/versegenerator')
       setActive('versegenerator');
+    else if (currentPath === '/dashboard/verse') setActive('versegenerator');
     else setActive(null);
   }, [location]);
 

@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from './reducers/userReducer';
+import userService from './services/user';
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -17,15 +18,16 @@ const App = () => {
   // run when user signs up or logs in
   useEffect(() => {
     if (user && user.token) {
+      userService.setToken(user.token);
       navigate('/dashboard');
     }
-  }, [user]);
+  }, [user.token]);
 
   // run when page is initially rendered
   useEffect(() => {
-    console.log('im run');
     const userInfo = JSON.parse(localStorage.getItem('loggedUserInfo'));
     if (userInfo) {
+      userService.setToken(user.token);
       dispatch(setUser(userInfo));
     }
   }, []);

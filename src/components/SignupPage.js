@@ -36,8 +36,6 @@ const SignupPage = () => {
     validationSchema: schema,
   });
 
-  console.log(formik.values.passwordSignup, formik.values.confirmPassword);
-
   return (
     <>
       <button

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get('authorization');
@@ -11,8 +12,6 @@ const tokenExtractor = (req, res, next) => {
 
 const userExtractor = async (req, res, next) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
-
-  console.log(decodedToken);
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'token invalid' });
   }
@@ -23,7 +22,6 @@ const userExtractor = async (req, res, next) => {
 };
 
 const errorHandler = (error, req, res, next) => {
-  console.log('IM CALLED');
   if (error.name === 'ValidationError')
     return res.status(400).json({ error: error.message });
   else if (error.name === 'CastError')

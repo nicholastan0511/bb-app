@@ -8,17 +8,14 @@ const MoodSection = ({ moodList }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
+  console.log(user);
+
   const handleClick = async (mood) => {
-    try {
-      dispatch(fetchOneVerse(mood));
-      console.log(user);
-      if (user && user.token) {
-        navigate(`/dashboard/verse?mood=${mood}`);
-      } else {
-        navigate(`/verse?mood=${mood}`);
-      }
-    } catch (e) {
-      console.log(e);
+    dispatch(fetchOneVerse(mood));
+    if (user) {
+      navigate(`/dashboard/verse?mood=${mood}`);
+    } else {
+      navigate(`/verse?mood=${mood}`);
     }
   };
 
