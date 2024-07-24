@@ -12,6 +12,8 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.log(user);
+
   // run when user signs up or logs in
   useEffect(() => {
     if (user && user.token) {
@@ -21,6 +23,7 @@ const App = () => {
 
   // run when page is initially rendered
   useEffect(() => {
+    console.log('im run');
     const userInfo = JSON.parse(localStorage.getItem('loggedUserInfo'));
     if (userInfo) {
       dispatch(setUser(userInfo));

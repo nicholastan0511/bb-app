@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Link from './Link';
 import homeSvg from '../../assets/home.svg';
 import savedSvg from '../../assets/saved.svg';
 import noteSvg from '../../assets/note.svg';
 import bibleSvg from '../../assets/bible.svg';
+import logoutSvg from '../../assets/logout.svg';
+
+import { useDispatch } from 'react-redux';
+import { signOut } from '../../reducers/userReducer';
 
 const Navbar = ({ user }) => {
   const [active, setActive] = useState(null);
   const location = useLocation();
   const currentPath = location.pathname;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(signOut());
+    navigate('/');
+  };
 
   useEffect(() => {
     if (currentPath === '/dashboard/menu') setActive('menu');
@@ -19,7 +30,7 @@ const Navbar = ({ user }) => {
   }, [location]);
 
   return (
-    <div className="max-w-72 h-screen flex flex-col items-start pt-10 gap-10 relative grow">
+    <div className="min-w-72 max-w-72 h-screen flex flex-col items-start pt-10 gap-10 relative grow">
       <h1 className="py-4 pl-8 w-full">MoodVerse</h1>
       <div className="flex flex-col gap-10 w-full">
         <Link
@@ -28,8 +39,8 @@ const Navbar = ({ user }) => {
           path="/dashboard/menu"
           active={active === 'menu' ? true : false}
         />
-        <Link text={'Saved Verses'} icon={savedSvg} />
-        <Link text={'Notes'} icon={noteSvg} />
+        {/* <Link text={'Saved Verses'} icon={savedSvg} />
+        <Link text={'Notes'} icon={noteSvg} /> */}
         <Link
           text={'Verse Generator'}
           icon={bibleSvg}
@@ -42,6 +53,12 @@ const Navbar = ({ user }) => {
           <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
         </div>
         <p className="text-lg text-stone-300">{user ? user.username : null}</p>
+        <a
+          className="hover:bg-stone-700 p-3 hover:cursor-pointer rounded-full"
+          onClick={handleLogout}
+        >
+          <img src={logoutSvg} alt="logout icon" className="w-5 h-5" />
+        </a>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import AdminMenu from './AdminMenu';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import MoodSection from '../MoodSection';
+import VersePage from '../VersePage';
 
 const Dashboard = ({ user }) => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Dashboard = ({ user }) => {
           path="/versegenerator"
           element={<MoodSection moodList={MOOD_LIST} />}
         />
+        <Route path="/verse" element={<VersePage />} />
       </Routes>
     </section>
   );

@@ -10,6 +10,8 @@ const login = async (creds) => {
   return result.data;
 };
 
+const addOneVerse = async (creds) => {};
+
 export default {
   signUp,
   login,

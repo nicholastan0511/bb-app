@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { resetVerse, fetchOneVerse } from '../reducers/verseReducer';
@@ -21,11 +21,20 @@ const moodList = [
 const VersePage = () => {
   const error = useSelector((state) => state.error);
   const verse = useSelector((state) => state.verses);
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const audioRef = useRef(null);
   const collapseRef = useRef(null);
+
+  console.log(user);
+
+  useEffect(() => {
+    if (verse.length !== 0) dispatch(resetVerse());
+  }, [location]);
+
+  console.log(verse);
 
   const [audioExist, setAudioExist] = useState(false);
 
@@ -35,7 +44,11 @@ const VersePage = () => {
 
   const handleReselect = () => {
     dispatch(resetVerse());
-    navigate('/#mood-section');
+    if (user && user.token) {
+      navigate('/dashboard/versegenerator');
+    } else {
+      navigate('/#mood-section');
+    }
   };
 
   const handleRefetch = (e) => {
@@ -63,19 +76,23 @@ const VersePage = () => {
   };
 
   if (error && error.type === 'serverError') {
-    navigate('/');
+    if (user && user.token) {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
+    }
   }
 
   if (verse.length === 0) {
     return (
-      <section className="transition-all duration-300 ease-linear gap-1 min-h-screen flex flex-col justify-center items-center bg-base-100">
+      <section className="w-full transition-all duration-300 ease-linear gap-1 min-h-screen flex flex-col justify-center items-center bg-stone-900">
         <span className="loading loading-infinity loading-lg"></span>
       </section>
     );
   }
 
   return (
-    <section className="transition-all duration-300 ease-linear gap-10 min-h-screen flex flex-col justify-center items-center bg-base-100">
+    <section className="w-full transition-all duration-300 ease-linear gap-10 min-h-screen flex flex-col justify-center items-center bg-stone-900">
       <div
         className="bg-neutral p-10 text-white flex items-center rounded-xl hover:cursor-pointer"
         onClick={handleReselect}
@@ -113,20 +130,20 @@ const VersePage = () => {
         </div>
         <div className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content peer-checked:pb-6 flex justify-around gap-5">
           <button
-            className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm"
+            className="btn btn-outline 2xl:btn-wide text-md btn-xs lg:btn-sm"
             onClick={handleReselect}
           >
             Reselect mood
           </button>
           <button
-            className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm"
+            className="btn btn-outline 2xl:btn-wide text-md btn-xs lg:btn-sm"
             onClick={handleRefetch}
           >
             Fetch another verse
           </button>
           {/* You can open the modal using document.getElementById('ID').showModal() method */}
           <button
-            className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm"
+            className="btn btn-outline 2xl:btn-wide text-md btn-xs lg:btn-sm"
             onClick={() => document.getElementById('my_modal_1').showModal()}
           >
             Get Gen-Z Version
@@ -147,7 +164,7 @@ const VersePage = () => {
           </dialog>
           {/* You can open the modal using document.getElementById('ID').showModal() method */}
           <button
-            className="btn btn-outline 2xl:btn-wide text-md lg:btn-sm"
+            className="btn btn-outline 2xl:btn-wide text-md btn-xs lg:btn-sm"
             onClick={() => document.getElementById('my_modal_2').showModal()}
           >
             See context
