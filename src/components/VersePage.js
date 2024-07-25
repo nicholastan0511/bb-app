@@ -45,10 +45,14 @@ const VersePage = ({ user, userStats }) => {
   }, []);
 
   // check if user has already saved the generated verse within the User Collection
-  const userAlreadySavedVerse = userStats.savedVerses.filter(
-    (savedVerse) =>
-      savedVerse.book === verse.book && savedVerse.verse === verse.verse
-  );
+  let userAlreadySavedVerse;
+
+  if (user && user.token) {
+    userAlreadySavedVerse = userStats.savedVerses.filter(
+      (savedVerse) =>
+        savedVerse.book === verse.book && savedVerse.verse === verse.verse
+    );
+  }
 
   console.log(userAlreadySavedVerse);
 
@@ -200,13 +204,13 @@ const VersePage = ({ user, userStats }) => {
               </div>
             </div>
           </dialog>
-          {userAlreadySavedVerse.length === 0 ? (
+          {user && user.token && userAlreadySavedVerse.length === 0 ? (
             <button
               onClick={() => dispatch(handleUserSaveVerse({ ...verse, mood }))}
             >
               <img src={saveIcon} alt="save icon" className="w-7 h-7" />
             </button>
-          ) : (
+          ) : user && user.token && userAlreadySavedVerse.length === 1 ? (
             <button
               onClick={() =>
                 dispatch(
@@ -216,7 +220,7 @@ const VersePage = ({ user, userStats }) => {
             >
               <img src={savedIcon} alt="saved icon" className="w-7 h-7" />
             </button>
-          )}
+          ) : null}
         </div>
       </div>
     </section>
