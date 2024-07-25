@@ -48,12 +48,16 @@ userRouter.post(
 );
 
 userRouter.get(
-  '/',
+  '/:id',
   middleware.tokenExtractor,
   middleware.userExtractor,
-  async (req, res) => {
-    const user = req.user;
-    res.send(user);
+  async (req, res, next) => {
+    try {
+      const user = req.user;
+      res.send(user);
+    } catch (err) {
+      next(err);
+    }
   }
 );
 

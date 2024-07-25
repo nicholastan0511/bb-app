@@ -2,23 +2,30 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const tokenExtractor = (req, res, next) => {
-  const authorization = req.get('authorization');
-  if (authorization && authorization.startsWith('Bearer ')) {
-    req.token = authorization.replace('Bearer ', '');
-  } else req.token = null;
-
-  next();
+  try {
+    const authorization = req.get('authorization');
+    if (authorization && authorization.startsWith('Bearer ')) {
+      req.token = authorization.replace('Bearer ', '');
+    } else {
+      return res.status(400).send({ error: 'Invalid token' });
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
 };
 
 const userExtractor = async (req, res, next) => {
-  const decodedToken = jwt.verify(req.token, process.env.SECRET);
-  if (!decodedToken.id) {
-    return res.status(401).json({ error: 'token invalid' });
+  try {
+    const decodedToken = jwt.verify(req.token, process.env.SECRET);
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' });
+    }
+    req.user = await User.findById(decodedToken.id).populate('savedVerses');
+    next();
+  } catch (err) {
+    next(err);
   }
-
-  req.user = await User.findById(decodedToken.id);
-
-  next();
 };
 
 const errorHandler = (error, req, res, next) => {
@@ -27,8 +34,11 @@ const errorHandler = (error, req, res, next) => {
     return res.status(400).json({ error: error.message });
   } else if (error.name === 'CastError')
     return res.status(400).send({ error: 'malformatted id' });
-  else if (error.name === 'JsonWebTokenError')
+  else if (error.name === 'JsonWebTokenError') {
+    console.log('IM CALLED!!!');
     return res.status(401).json({ error: error.message });
+  }
+
   next(error);
 };
 

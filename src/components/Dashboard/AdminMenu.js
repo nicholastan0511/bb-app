@@ -2,6 +2,10 @@ import React from 'react';
 import Stats, { StatUser } from './StatComponent';
 
 const AdminMenu = ({ userStats }) => {
+  const savedVersesLength = userStats.savedVerses
+    ? userStats.savedVerses.length
+    : null;
+
   return (
     <div className="h-screen bg-stone-900 grow overflow-hidden flex items-end">
       <div
@@ -15,8 +19,8 @@ const AdminMenu = ({ userStats }) => {
             desc="21% increase from yesterday"
           />
           <Stats
-            title="Verse Generated Today"
-            value={0}
+            title="Saved Verses"
+            value={savedVersesLength}
             desc="21% increase from yesterday"
           />
           <Stats

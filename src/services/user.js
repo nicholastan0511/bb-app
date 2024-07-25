@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 let token;
+let id;
 
 const setToken = (newToken) => {
-  token = `Bearer ${newToken}`;
+  token = `Bearer ${newToken.token}`;
+  id = newToken.id;
 };
 
 const signUp = async (creds) => {
@@ -33,7 +35,23 @@ const fetchUserInfo = async () => {
       authorization: token,
     },
   };
-  const result = await axios.get(`${BACKEND_URL}/user`, config);
+  const result = await axios.get(`${BACKEND_URL}/user/${id}`, config);
+  return result.data;
+};
+
+const saveVerse = async (obj) => {
+  const config = {
+    headers: {
+      authorization: token,
+    },
+  };
+
+  console.log(BACKEND_URL);
+  const result = await axios.post(
+    `${BACKEND_URL}/verse/save_verse`,
+    obj,
+    config
+  );
   return result.data;
 };
 
@@ -43,4 +61,5 @@ export default {
   generateOneVerse,
   setToken,
   fetchUserInfo,
+  saveVerse,
 };

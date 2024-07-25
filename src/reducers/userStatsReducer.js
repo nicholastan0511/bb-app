@@ -16,10 +16,15 @@ const userSlice = createSlice({
       };
       return user;
     },
+    saveOneVerse: (state, action) => {
+      state.savedVerses.push(action.payload);
+      return;
+    },
   },
 });
 
-export const { initializeUser, generateOneVerse } = userSlice.actions;
+export const { initializeUser, generateOneVerse, saveOneVerse } =
+  userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -36,6 +41,25 @@ export const handleUserGenerateVerse = () => {
     try {
       const result = await userService.generateOneVerse();
       dispatch(generateOneVerse(result));
+    } catch (err) {
+      dispatch(
+        setError({
+          message: err.message,
+          type: 'serverError',
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetError());
+      }, 5000);
+    }
+  };
+};
+
+export const handleUserSaveVerse = (obj) => {
+  return async (dispatch) => {
+    try {
+      const result = await userService.saveVerse(obj);
+      dispatch(saveOneVerse(result));
     } catch (err) {
       dispatch(
         setError({

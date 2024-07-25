@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import verseService from '../services/verse';
 import { setError, resetError } from './errorReducer';
-import { handleUserGenerateVerse } from './userStatsReducer';
 
 const verseSlice = createSlice({
   name: 'verses',

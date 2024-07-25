@@ -18,7 +18,7 @@ const App = () => {
   // run when user signs up or logs in
   useEffect(() => {
     if (user && user.token) {
-      userService.setToken(user.token);
+      userService.setToken(user);
       navigate('/dashboard');
     }
   }, [user.token]);
@@ -27,7 +27,7 @@ const App = () => {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('loggedUserInfo'));
     if (userInfo) {
-      userService.setToken(user.token);
+      userService.setToken(user);
       dispatch(setUser(userInfo));
     }
   }, []);

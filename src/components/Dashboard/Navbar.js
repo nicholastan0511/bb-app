@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Link from './Link';
 import homeSvg from '../../assets/home.svg';
-// import savedSvg from '../../assets/saved.svg';
+import savedSvg from '../../assets/saved.svg';
 // import noteSvg from '../../assets/note.svg';
 import bibleSvg from '../../assets/bible.svg';
 import logoutSvg from '../../assets/logout.svg';
@@ -40,8 +40,8 @@ const Navbar = ({ user }) => {
           path="/dashboard/menu"
           active={active === 'menu' ? true : false}
         />
-        {/* <Link text={'Saved Verses'} icon={savedSvg} />
-        <Link text={'Notes'} icon={noteSvg} /> */}
+        <Link text={'Saved Verses'} icon={savedSvg} />
+        {/* <Link text={'Notes'} icon={noteSvg} /> */}
         <Link
           text={'Verse Generator'}
           icon={bibleSvg}

@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { resetVerse, fetchOneVerse } from '../reducers/verseReducer';
 import { useLocation } from 'react-router-dom';
 import verseService from '../services/verse';
-import { handleUserGenerateVerse } from '../reducers/userStatsReducer';
+import {
+  handleUserGenerateVerse,
+  handleUserSaveVerse,
+} from '../reducers/userStatsReducer';
+import saveIcon from '../assets/save.png';
+import savedIcon from '../assets/saved.png';
 
 const moodList = [
   { mood: 'motivated', emoji: '💪' },
@@ -184,6 +189,9 @@ const VersePage = ({ user }) => {
               </div>
             </div>
           </dialog>
+          <button onClick={() => dispatch(handleUserSaveVerse(verse))}>
+            <img src={saveIcon} alt="save icon" className="w-8 h-8" />
+          </button>
         </div>
       </div>
     </section>

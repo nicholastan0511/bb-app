@@ -1,20 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-// Define the schema for a saved verse
-const savedVerseSchema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-    minlength: 3, // Adjust as needed
-  },
-  text: {
-    type: String,
-    required: true,
-    minlength: 3, // Adjust as needed
-  },
-});
-
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -32,7 +18,9 @@ const userSchema = new mongoose.Schema({
     required: false,
     minLength: 3,
   },
-  savedVerses: [savedVerseSchema],
+  savedVerses: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Verse', required: false },
+  ],
   generatedVerseCount: {
     type: Number,
     required: false,
