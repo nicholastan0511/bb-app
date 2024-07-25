@@ -55,6 +55,19 @@ const saveVerse = async (obj) => {
   return result.data;
 };
 
+const deleteSavedVerse = async (verseId) => {
+  const config = {
+    headers: {
+      authorization: token,
+    },
+  };
+  const result = await axios.delete(
+    `${BACKEND_URL}/user/${id}/verse/${verseId}`,
+    config
+  );
+  return result.data;
+};
+
 export default {
   signUp,
   login,
@@ -62,4 +75,5 @@ export default {
   setToken,
   fetchUserInfo,
   saveVerse,
+  deleteSavedVerse,
 };

@@ -20,11 +20,21 @@ const userSlice = createSlice({
       state.savedVerses.push(action.payload);
       return;
     },
+    deleteOneVerse: (state, action) => {
+      const newState = state.savedVerses.filter(
+        (verse) => verse.id !== action.payload
+      );
+      return newState;
+    },
   },
 });
 
-export const { initializeUser, generateOneVerse, saveOneVerse } =
-  userSlice.actions;
+export const {
+  initializeUser,
+  generateOneVerse,
+  saveOneVerse,
+  deleteOneVerse,
+} = userSlice.actions;
 
 export default userSlice.reducer;
 
@@ -60,6 +70,25 @@ export const handleUserSaveVerse = (obj) => {
     try {
       const result = await userService.saveVerse(obj);
       dispatch(saveOneVerse(result));
+    } catch (err) {
+      dispatch(
+        setError({
+          message: err.message,
+          type: 'serverError',
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetError());
+      }, 5000);
+    }
+  };
+};
+
+export const handleUserDeleteSavedVerse = (verseId) => {
+  return async (dispatch) => {
+    try {
+      await userService.deleteSavedVerse(verseId);
+      dispatch(deleteOneVerse(verseId));
     } catch (err) {
       dispatch(
         setError({
