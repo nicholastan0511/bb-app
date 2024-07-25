@@ -37,7 +37,10 @@ const Dashboard = () => {
           path="/versegenerator"
           element={<MoodSection moodList={MOOD_LIST} />}
         />
-        <Route path="/verse" element={<VersePage user={user} />} />
+        <Route
+          path="/verse"
+          element={<VersePage user={user} userStats={userStats} />}
+        />
       </Routes>
     </section>
   );

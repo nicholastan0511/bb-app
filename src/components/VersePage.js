@@ -7,9 +7,11 @@ import verseService from '../services/verse';
 import {
   handleUserGenerateVerse,
   handleUserSaveVerse,
+  handleUserDeleteSavedVerse,
 } from '../reducers/userStatsReducer';
 import saveIcon from '../assets/save.png';
 import savedIcon from '../assets/saved.png';
+import Error from './Error';
 
 const moodList = [
   { mood: 'motivated', emoji: '💪' },
@@ -24,7 +26,7 @@ const moodList = [
   { mood: 'blessed', emoji: '🙌' },
 ];
 
-const VersePage = ({ user }) => {
+const VersePage = ({ user, userStats }) => {
   const error = useSelector((state) => state.error);
   const verse = useSelector((state) => state.verses);
   const navigate = useNavigate();
@@ -41,6 +43,14 @@ const VersePage = ({ user }) => {
     if (verse.length !== 0 && user && user.token)
       dispatch(handleUserGenerateVerse());
   }, []);
+
+  // check if user has already saved the generated verse within the User Collection
+  const userAlreadySavedVerse = userStats.savedVerses.filter(
+    (savedVerse) =>
+      savedVerse.book === verse.book && savedVerse.verse === verse.verse
+  );
+
+  console.log(userAlreadySavedVerse);
 
   const [audioExist, setAudioExist] = useState(false);
 
@@ -83,7 +93,7 @@ const VersePage = ({ user }) => {
 
   if (error && error.type === 'serverError') {
     if (user && user.token) {
-      navigate('/dashboard');
+      navigate('/dashboard/menu');
     } else {
       navigate('/');
     }
@@ -99,6 +109,7 @@ const VersePage = ({ user }) => {
 
   return (
     <section className="w-full transition-all duration-300 ease-linear gap-10 min-h-screen flex flex-col justify-center items-center bg-stone-900">
+      {error && error.type === 'userError' ? <Error error={error} /> : null}
       <div
         className="bg-neutral p-10 text-white flex items-center rounded-xl hover:cursor-pointer"
         onClick={handleReselect}
@@ -189,9 +200,23 @@ const VersePage = ({ user }) => {
               </div>
             </div>
           </dialog>
-          <button onClick={() => dispatch(handleUserSaveVerse(verse))}>
-            <img src={saveIcon} alt="save icon" className="w-8 h-8" />
-          </button>
+          {userAlreadySavedVerse.length === 0 ? (
+            <button
+              onClick={() => dispatch(handleUserSaveVerse({ ...verse, mood }))}
+            >
+              <img src={saveIcon} alt="save icon" className="w-7 h-7" />
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                dispatch(
+                  handleUserDeleteSavedVerse(userAlreadySavedVerse[0]._id)
+                )
+              }
+            >
+              <img src={savedIcon} alt="saved icon" className="w-7 h-7" />
+            </button>
+          )}
         </div>
       </div>
     </section>

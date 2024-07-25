@@ -35,8 +35,11 @@ const errorHandler = (error, req, res, next) => {
   } else if (error.name === 'CastError')
     return res.status(400).send({ error: 'malformatted id' });
   else if (error.name === 'JsonWebTokenError') {
-    console.log('IM CALLED!!!');
     return res.status(401).json({ error: error.message });
+  } else if (error.name === 'Error') {
+    return res
+      .status(500)
+      .json({ error: 'Error generating verse. Try again in a sec.' });
   }
 
   next(error);

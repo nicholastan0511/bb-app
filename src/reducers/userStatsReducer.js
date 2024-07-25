@@ -21,9 +21,13 @@ const userSlice = createSlice({
       return;
     },
     deleteOneVerse: (state, action) => {
-      const newState = state.savedVerses.filter(
-        (verse) => verse.id !== action.payload
-      );
+      const newState = {
+        ...state,
+        savedVerses: state.savedVerses.filter(
+          (verse) => verse._id.toString() !== action.payload.toString()
+        ),
+      };
+
       return newState;
     },
   },
@@ -73,8 +77,8 @@ export const handleUserSaveVerse = (obj) => {
     } catch (err) {
       dispatch(
         setError({
-          message: err.message,
-          type: 'serverError',
+          message: err.response.data.error,
+          type: 'userError',
         })
       );
       setTimeout(() => {
@@ -92,7 +96,7 @@ export const handleUserDeleteSavedVerse = (verseId) => {
     } catch (err) {
       dispatch(
         setError({
-          message: err.message,
+          message: err.response.data.error,
           type: 'serverError',
         })
       );

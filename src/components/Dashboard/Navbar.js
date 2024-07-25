@@ -40,7 +40,7 @@ const Navbar = ({ user }) => {
           path="/dashboard/menu"
           active={active === 'menu' ? true : false}
         />
-        <Link text={'Saved Verses'} icon={savedSvg} />
+        {/* <Link text={'Saved Verses'} icon={savedSvg} /> */}
         {/* <Link text={'Notes'} icon={noteSvg} /> */}
         <Link
           text={'Verse Generator'}
