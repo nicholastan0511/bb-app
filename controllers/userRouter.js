@@ -76,6 +76,12 @@ userRouter.delete(
       user.savedVerses = user.savedVerses.filter(
         (verse) => verse.id !== verseId
       );
+
+      // remove note attached to the verse
+      user.notes = user.notes.filter(
+        (note) => note.verse.toString() !== verseId
+      );
+
       await user.save();
 
       // Check if the verse is still referenced by any other users
@@ -111,11 +117,22 @@ userRouter.post(
       const { verseId } = req.params;
       const { note } = req.body;
 
+      // check if there is already a note on said verse in User Collection
+      const noteExistence = user.notes.findIndex(
+        (note) => note.verse.toString() === verseId
+      );
+
+      if (noteExistence !== -1) {
+        return res
+          .status(500)
+          .json({ message: 'A note was already created for this verse' });
+      }
+
       // save note into User Collection
       user.notes.push({ verse: verseId, note });
       await user.save();
 
-      res.status(201).json({ message: 'Note has been created' });
+      res.status(201).send(user.notes[user.notes.length - 1]);
     } catch (err) {
       next(err);
     }
@@ -140,6 +157,39 @@ userRouter.get(
       }
 
       res.status(200).send(note);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+userRouter.put(
+  '/:userId/verse/:verseId/note',
+  middleware.tokenExtractor,
+  middleware.userExtractor,
+  middleware.checkVerseExistenceInUser,
+  async (req, res, next) => {
+    try {
+      const user = req.user;
+      const { noteId, note } = req.body;
+
+      // Find the index of the note in the notes array
+      const noteIndex = user.notes.findIndex(
+        (n) => n._id.toString() === noteId
+      );
+
+      // Check if the note is inside User Collection
+      if (noteIndex === -1) {
+        return res.status(404).json({
+          error: 'Note not found',
+        });
+      }
+
+      // update note
+      user.notes[noteIndex].note = note;
+      await user.save();
+
+      res.status(200).json({ message: 'Note has been updated' });
     } catch (err) {
       next(err);
     }

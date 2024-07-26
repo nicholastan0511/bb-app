@@ -68,6 +68,21 @@ const deleteSavedVerse = async (verseId) => {
   return result.data;
 };
 
+const addNote = async (note, verseId) => {
+  const config = {
+    headers: {
+      authorization: token,
+    },
+  };
+
+  const result = await axios.post(
+    `${BACKEND_URL}/user/${id}/verse/${verseId}/note`,
+    note,
+    config
+  );
+  return result.data;
+};
+
 export default {
   signUp,
   login,
@@ -76,4 +91,5 @@ export default {
   fetchUserInfo,
   saveVerse,
   deleteSavedVerse,
+  addNote,
 };

@@ -30,6 +30,10 @@ const userSlice = createSlice({
 
       return newState;
     },
+    addNote: (state, action) => {
+      state.notes.push(action.payload);
+      return;
+    },
   },
 });
 
@@ -38,6 +42,7 @@ export const {
   generateOneVerse,
   saveOneVerse,
   deleteOneVerse,
+  addNote,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -93,6 +98,25 @@ export const handleUserDeleteSavedVerse = (verseId) => {
     try {
       await userService.deleteSavedVerse(verseId);
       dispatch(deleteOneVerse(verseId));
+    } catch (err) {
+      dispatch(
+        setError({
+          message: err.response.data.error,
+          type: 'serverError',
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetError());
+      }, 5000);
+    }
+  };
+};
+
+export const handleUserAddNote = (note, verseId) => {
+  return async (dispatch) => {
+    try {
+      const savedNote = await userService.addNote(note, verseId);
+      dispatch(savedNote);
     } catch (err) {
       dispatch(
         setError({

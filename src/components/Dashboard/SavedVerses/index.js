@@ -17,7 +17,7 @@ const SavedVerses = ({ savedVerses, notes }) => {
       // else return with note attached
       return {
         ...verse,
-        note: noteForVerse.note,
+        note: noteForVerse,
       };
     }
 
