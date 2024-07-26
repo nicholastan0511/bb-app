@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { handleUserAddNote } from '../../../reducers/userStatsReducer';
+import {
+  handleUserAddNote,
+  handleUserUpdateNote,
+} from '../../../reducers/userStatsReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import Error from '../../Error';
 
-const Modal = ({ title, desc, modalId }) => {
+const Modal = ({ title, desc, modalId, noteId }) => {
   const [formActive, setFormActive] = useState(false);
   const error = useSelector((state) => state.error);
 
@@ -19,16 +22,21 @@ const Modal = ({ title, desc, modalId }) => {
         <div className="flex flex-col gap-5">
           <h3 className="font-bold text-lg">{title}</h3>
           {formActive ? (
-            <Form desc={desc} verseId={modalId} setFormActive={setFormActive} />
+            <Form
+              desc={desc}
+              verseId={modalId}
+              setFormActive={setFormActive}
+              noteId={noteId}
+            />
           ) : null}
 
           {!desc && !formActive ? (
             <p className="py-4 italic">
               No note for this verse. Consider adding one.
             </p>
-          ) : (
+          ) : desc && !formActive ? (
             <p className="py-4">{desc}</p>
-          )}
+          ) : null}
         </div>
         <div className="modal-action">
           <form method="dialog">
@@ -53,13 +61,19 @@ const Modal = ({ title, desc, modalId }) => {
   );
 };
 
-const Form = ({ desc, verseId, setFormActive }) => {
+const Form = ({ desc, verseId, setFormActive, noteId }) => {
   const dispatch = useDispatch();
   const [note, setNote] = useState(!desc ? '' : desc);
 
   const handleAddNote = (e) => {
     e.preventDefault();
     dispatch(handleUserAddNote(note, verseId));
+    setFormActive(false);
+  };
+
+  const handleUpdateNote = (e) => {
+    e.preventDefault();
+    dispatch(handleUserUpdateNote(noteId, note, verseId));
     setFormActive(false);
   };
 
@@ -77,7 +91,12 @@ const Form = ({ desc, verseId, setFormActive }) => {
           Add note
         </button>
       ) : (
-        <button className="btn self-center">Update note</button>
+        <button
+          className="btn self-center"
+          onClick={(e) => handleUpdateNote(e)}
+        >
+          Update note
+        </button>
       )}
     </form>
   );

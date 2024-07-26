@@ -34,6 +34,17 @@ const userSlice = createSlice({
       state.notes.push(action.payload);
       return;
     },
+    updateNote: (state, action) => {
+      const newState = {
+        ...state,
+        notes: state.notes.map((note) => {
+          if (note._id.toString() === action.payload._id.toString())
+            return action.payload;
+          else return note;
+        }),
+      };
+      return newState;
+    },
   },
 });
 
@@ -43,6 +54,7 @@ export const {
   saveOneVerse,
   deleteOneVerse,
   addNote,
+  updateNote,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -117,6 +129,25 @@ export const handleUserAddNote = (note, verseId) => {
     try {
       const savedNote = await userService.addNote(note, verseId);
       dispatch(addNote(savedNote));
+    } catch (err) {
+      dispatch(
+        setError({
+          message: err.response.data.error,
+          type: 'userError',
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetError());
+      }, 5000);
+    }
+  };
+};
+
+export const handleUserUpdateNote = (noteId, note, verseId) => {
+  return async (dispatch) => {
+    try {
+      const updatedNote = await userService.updateNote(noteId, note, verseId);
+      dispatch(updateNote(updatedNote));
     } catch (err) {
       dispatch(
         setError({

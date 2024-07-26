@@ -83,6 +83,21 @@ const addNote = async (note, verseId) => {
   return result.data;
 };
 
+const updateNote = async (noteId, note, verseId) => {
+  const config = {
+    headers: {
+      authorization: token,
+    },
+  };
+
+  const result = await axios.put(
+    `${BACKEND_URL}/user/${id}/verse/${verseId}/note`,
+    { noteId, note },
+    config
+  );
+  return result.data;
+};
+
 export default {
   signUp,
   login,
@@ -92,4 +107,5 @@ export default {
   saveVerse,
   deleteSavedVerse,
   addNote,
+  updateNote,
 };

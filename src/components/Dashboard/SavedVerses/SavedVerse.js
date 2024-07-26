@@ -33,6 +33,7 @@ const SavedVerse = ({ verse }) => {
           <Modal
             title={`${verse.book} ${verse.verse}`}
             desc={verse.note ? verse.note.note : null}
+            noteId={verse.note ? verse.note._id : null}
             modalId={verse._id}
           />
         </div>

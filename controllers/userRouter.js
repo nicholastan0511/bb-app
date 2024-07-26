@@ -189,7 +189,7 @@ userRouter.put(
       user.notes[noteIndex].note = note;
       await user.save();
 
-      res.status(200).json({ message: 'Note has been updated' });
+      res.status(200).send(user.notes[noteIndex]);
     } catch (err) {
       next(err);
     }
