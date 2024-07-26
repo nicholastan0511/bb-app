@@ -125,7 +125,7 @@ userRouter.post(
       if (noteExistence !== -1) {
         return res
           .status(500)
-          .json({ message: 'A note was already created for this verse' });
+          .json({ error: 'A note was already created for this verse' });
       }
 
       // save note into User Collection

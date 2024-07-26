@@ -116,12 +116,12 @@ export const handleUserAddNote = (note, verseId) => {
   return async (dispatch) => {
     try {
       const savedNote = await userService.addNote(note, verseId);
-      dispatch(savedNote);
+      dispatch(addNote(savedNote));
     } catch (err) {
       dispatch(
         setError({
           message: err.response.data.error,
-          type: 'serverError',
+          type: 'userError',
         })
       );
       setTimeout(() => {

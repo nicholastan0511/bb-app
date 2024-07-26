@@ -77,7 +77,7 @@ const addNote = async (note, verseId) => {
 
   const result = await axios.post(
     `${BACKEND_URL}/user/${id}/verse/${verseId}/note`,
-    note,
+    { note },
     config
   );
   return result.data;
