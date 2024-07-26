@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/user/669f37a785859bc32d23d8b2/verse/66a339f86dbb58d583976af3/note
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RvIiwiaWQiOiI2NjlmMzdhNzg1ODU5YmMzMmQyM2Q4YjIiLCJpYXQiOjE3MjE5Njg3MzR9.RCRPjngf6KllQUbxWAYRF0TNsJKmA6QLMWYY8lwqFVU
+
+{
+  "note": "Cool."
+}
+

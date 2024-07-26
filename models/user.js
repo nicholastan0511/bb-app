@@ -25,6 +25,16 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
+  notes: [
+    {
+      verse: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Verse',
+        required: true,
+      },
+      note: { type: String, required: false, minLength: 5 },
+    },
+  ],
 });
 
 userSchema.plugin(uniqueValidator);

@@ -66,22 +66,11 @@ userRouter.delete(
   '/:userId/verse/:verseId',
   middleware.tokenExtractor,
   middleware.userExtractor,
+  middleware.checkVerseExistenceInUser,
   async (req, res, next) => {
     try {
       const { verseId } = req.params;
       const user = req.user;
-
-      // check if verse is within user's saved verses
-      const verseToBeDeleted = user.savedVerses.filter(
-        (verse) => verse.id === verseId
-      );
-
-      // if verse is not within user's saved verses
-      if (verseToBeDeleted.length === 0) {
-        return res
-          .status(500)
-          .json({ error: "Unable to delete a verse you didn't save" });
-      }
 
       // remove verse from user's saved verses
       user.savedVerses = user.savedVerses.filter(
@@ -105,6 +94,52 @@ userRouter.delete(
             'Verse removed from saved verses but still referenced by other users',
         });
       }
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+userRouter.post(
+  '/:userId/verse/:verseId/note',
+  middleware.tokenExtractor,
+  middleware.userExtractor,
+  middleware.checkVerseExistenceInUser,
+  async (req, res, next) => {
+    try {
+      const user = req.user;
+      const { verseId } = req.params;
+      const { note } = req.body;
+
+      // save note into User Collection
+      user.notes.push({ verse: verseId, note });
+      await user.save();
+
+      res.status(201).json({ message: 'Note has been created' });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+userRouter.get(
+  '/:userId/verse/:verseId/note',
+  middleware.tokenExtractor,
+  middleware.userExtractor,
+  middleware.checkVerseExistenceInUser,
+  async (req, res, next) => {
+    try {
+      const user = req.user;
+      const { verseId } = req.params;
+      const note = user.notes.filter(
+        (note) => note.verse.toString() === verseId
+      );
+
+      if (note.length === 0) {
+        return res.status(404).json({ error: 'Note not found' });
+      }
+
+      res.status(200).send(note);
     } catch (err) {
       next(err);
     }

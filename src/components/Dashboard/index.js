@@ -6,6 +6,7 @@ import MoodSection from '../MoodSection';
 import VersePage from '../VersePage';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserInfo } from '../../reducers/userStatsReducer';
+import SavedVerses from './SavedVerses';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -40,6 +41,15 @@ const Dashboard = () => {
         <Route
           path="/verse"
           element={<VersePage user={user} userStats={userStats} />}
+        />
+        <Route
+          path="/saved_verses"
+          element={
+            <SavedVerses
+              savedVerses={userStats.savedVerses}
+              notes={userStats.notes}
+            />
+          }
         />
       </Routes>
     </section>

@@ -28,6 +28,24 @@ const userExtractor = async (req, res, next) => {
   }
 };
 
+const checkVerseExistenceInUser = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const verseId = req.params.verseId;
+    const verse = user.savedVerses.filter((verse) => verse.id === verseId);
+
+    if (verse.length === 0) {
+      return res.status(500).json({
+        error: "Unable to execute command on verse that doesn't exist",
+      });
+    }
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
 const errorHandler = (error, req, res, next) => {
   console.log('IM THE ERR NAME', error.name);
   if (error.name === 'ValidationError') {
@@ -54,4 +72,5 @@ module.exports = {
   userExtractor,
   errorHandler,
   unknownEndpoint,
+  checkVerseExistenceInUser,
 };

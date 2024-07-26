@@ -27,6 +27,8 @@ const Navbar = ({ user }) => {
     else if (currentPath === '/dashboard/versegenerator')
       setActive('versegenerator');
     else if (currentPath === '/dashboard/verse') setActive('versegenerator');
+    else if (currentPath === '/dashboard/saved_verses')
+      setActive('saved_verses');
     else setActive(null);
   }, [location]);
 
@@ -40,7 +42,12 @@ const Navbar = ({ user }) => {
           path="/dashboard/menu"
           active={active === 'menu' ? true : false}
         />
-        {/* <Link text={'Saved Verses'} icon={savedSvg} /> */}
+        <Link
+          text={'Saved Verses'}
+          icon={savedSvg}
+          path="/dashboard/saved_verses"
+          active={active === 'saved_verses' ? true : false}
+        />
         {/* <Link text={'Notes'} icon={noteSvg} /> */}
         <Link
           text={'Verse Generator'}

@@ -1,13 +1,18 @@
 import React from 'react';
 import Stats, { StatUser } from './StatComponent';
+import Error from '../Error';
+import { useSelector } from 'react-redux';
 
 const AdminMenu = ({ userStats }) => {
+  const error = useSelector((state) => state.error);
+
   const savedVersesLength = userStats.savedVerses
     ? userStats.savedVerses.length
     : null;
 
   return (
     <div className="h-screen bg-stone-900 grow overflow-hidden flex items-end">
+      {error && error.type === 'serverError' ? <Error error={error} /> : null}
       <div
         className={`border-2 border-b-0 border-stone-700 rounded-t-3xl w-full h-[97%] flex flex-col justify-around items-center p-10 gap-5`}
       >
