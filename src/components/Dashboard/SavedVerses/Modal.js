@@ -73,7 +73,11 @@ const Form = ({ desc, verseId, setFormActive, noteId }) => {
 
   const handleUpdateNote = (e) => {
     e.preventDefault();
-    dispatch(handleUserUpdateNote(noteId, note, verseId));
+
+    // only send out request when note has been updated
+    if (note !== desc) {
+      dispatch(handleUserUpdateNote(noteId, note, verseId));
+    }
     setFormActive(false);
   };
 
