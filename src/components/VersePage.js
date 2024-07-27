@@ -8,6 +8,7 @@ import {
   handleUserGenerateVerse,
   handleUserSaveVerse,
   handleUserDeleteSavedVerse,
+  handleUserAddHistory,
 } from '../reducers/userStatsReducer';
 import saveIcon from '../assets/save.png';
 import savedIcon from '../assets/saved.png';
@@ -35,13 +36,36 @@ const VersePage = ({ user, userStats }) => {
   const audioRef = useRef(null);
   const collapseRef = useRef(null);
 
+  const [audioExist, setAudioExist] = useState(false);
+
+  const mood = new URLSearchParams(location.search).get('mood');
+
+  const moodInfo = moodList.filter((oneMood) => oneMood.mood === mood);
+
   useEffect(() => {
     if (verse.length !== 0) dispatch(resetVerse());
   }, [location]);
 
   useEffect(() => {
-    if (verse.length !== 0 && user && user.token)
+    if (verse.length !== 0 && user && user.token) {
+      const currentTime = new Date();
+
+      // Convert the Date object to an ISO string for compatibility
+      const timeISO = currentTime.toISOString();
+
+      console.log(timeISO);
+
       dispatch(handleUserGenerateVerse());
+      dispatch(
+        handleUserAddHistory({
+          book: verse.book,
+          verse: verse.verse,
+          text: verse.text,
+          mood,
+          time: timeISO,
+        })
+      );
+    }
   }, []);
 
   // check if user has already saved the generated verse within the User Collection
@@ -55,12 +79,6 @@ const VersePage = ({ user, userStats }) => {
   }
 
   console.log(userAlreadySavedVerse);
-
-  const [audioExist, setAudioExist] = useState(false);
-
-  const mood = new URLSearchParams(location.search).get('mood');
-
-  const moodInfo = moodList.filter((oneMood) => oneMood.mood === mood);
 
   const handleReselect = () => {
     dispatch(resetVerse());

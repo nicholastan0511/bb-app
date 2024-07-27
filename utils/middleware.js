@@ -21,7 +21,9 @@ const userExtractor = async (req, res, next) => {
     if (!decodedToken.id) {
       return res.status(401).json({ error: 'token invalid' });
     }
-    req.user = await User.findById(decodedToken.id).populate('savedVerses');
+    req.user = await User.findById(decodedToken.id)
+      .populate('savedVerses')
+      .populate('history.verseId');
     next();
   } catch (err) {
     next(err);

@@ -45,6 +45,10 @@ const userSlice = createSlice({
       };
       return newState;
     },
+    addHistory: (state, action) => {
+      state.history.push(action.payload);
+      return;
+    },
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   deleteOneVerse,
   addNote,
   updateNote,
+  addHistory,
 } = userSlice.actions;
 
 export default userSlice.reducer;
@@ -153,6 +158,25 @@ export const handleUserUpdateNote = (noteId, note, verseId) => {
         setError({
           message: err.response.data.error,
           type: 'userError',
+        })
+      );
+      setTimeout(() => {
+        dispatch(resetError());
+      }, 5000);
+    }
+  };
+};
+
+export const handleUserAddHistory = (obj) => {
+  return async (dispatch) => {
+    try {
+      const generatedVerse = await userService.addHistory(obj);
+      dispatch(addHistory(generatedVerse));
+    } catch (err) {
+      dispatch(
+        setError({
+          message: err.response.data.error,
+          type: 'serverError',
         })
       );
       setTimeout(() => {

@@ -196,4 +196,34 @@ userRouter.put(
   }
 );
 
+userRouter.post(
+  '/:userId/verse/history',
+  middleware.tokenExtractor,
+  middleware.userExtractor,
+  async (req, res, next) => {
+    try {
+      const user = req.user;
+      const { book, verse, text, mood, time } = req.body;
+
+      // save new generated verse into Verse Collection
+      const verseForUserHistory = new Verse({
+        book,
+        verse,
+        text,
+        mood,
+        userId: user.id,
+      });
+      const savedVerse = await verseForUserHistory.save();
+
+      // save generated verse into history prop in User Collection
+      user.history.push({ verseId: savedVerse._id, time });
+      await user.save();
+
+      res.send({ ...savedVerse, time });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 module.exports = userRouter;

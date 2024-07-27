@@ -98,6 +98,21 @@ const updateNote = async (noteId, note, verseId) => {
   return result.data;
 };
 
+const addHistory = async (obj) => {
+  const config = {
+    headers: {
+      authorization: token,
+    },
+  };
+
+  const result = await axios.post(
+    `${BACKEND_URL}/user/${id}/verse/history`,
+    obj,
+    config
+  );
+  return result.data;
+};
+
 export default {
   signUp,
   login,
@@ -108,4 +123,5 @@ export default {
   deleteSavedVerse,
   addNote,
   updateNote,
+  addHistory,
 };

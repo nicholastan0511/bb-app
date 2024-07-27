@@ -17,11 +17,11 @@ const verseSchema = new mongoose.Schema({
   },
   'gen-z_version': {
     type: String,
-    required: true,
+    required: false,
   },
   context: {
     type: String,
-    required: true,
+    required: false,
   },
   mood: {
     type: String,
