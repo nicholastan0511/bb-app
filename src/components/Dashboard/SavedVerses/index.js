@@ -6,7 +6,7 @@ const SavedVerses = ({ savedVerses, notes }) => {
     // match note's reference id to a verse with the verse id
     const noteForVerse = notes.find((note) => note.verse === verse._id);
 
-    console.log(noteForVerse);
+    // console.log(noteForVerse);
 
     // if the note obj does not contain the note for this verse return the original obj
     if (noteForVerse === undefined) {
@@ -24,7 +24,7 @@ const SavedVerses = ({ savedVerses, notes }) => {
     // else return the original verse obj
   });
 
-  console.log(savedVersesWithNotes);
+  // console.log(savedVersesWithNotes);
 
   return (
     <div className="h-screen bg-stone-900 grow overflow-y-auto flex items-end">

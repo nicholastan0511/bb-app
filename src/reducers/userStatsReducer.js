@@ -67,7 +67,7 @@ export default userSlice.reducer;
 export const fetchUserInfo = () => {
   return async (dispatch) => {
     const user = await userService.fetchUserInfo();
-    console.log(user);
+    // console.log(user);
     dispatch(initializeUser(user));
   };
 };

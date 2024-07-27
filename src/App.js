@@ -13,7 +13,7 @@ const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log(user);
+  // console.log(user);
 
   // run when user signs up or logs in
   useEffect(() => {

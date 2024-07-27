@@ -46,7 +46,7 @@ const saveVerse = async (obj) => {
     },
   };
 
-  console.log(BACKEND_URL);
+  // console.log(BACKEND_URL);
   const result = await axios.post(
     `${BACKEND_URL}/verse/save_verse`,
     obj,

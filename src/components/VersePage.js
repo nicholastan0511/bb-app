@@ -42,18 +42,20 @@ const VersePage = ({ user, userStats }) => {
 
   const moodInfo = moodList.filter((oneMood) => oneMood.mood === mood);
 
-  useEffect(() => {
-    if (verse.length !== 0) dispatch(resetVerse());
-  }, [location]);
+  // useEffect(() => {
+  //   console.log('im called');
+  //   dispatch(resetVerse());
+  // }, [location]);
 
   useEffect(() => {
-    if (verse.length !== 0 && user && user.token) {
+    if (verse && verse.verse && user && user.token) {
+      console.log(verse.length);
       const currentTime = new Date();
 
       // Convert the Date object to an ISO string for compatibility
       const timeISO = currentTime.toISOString();
 
-      console.log(timeISO);
+      // console.log(timeISO);
 
       dispatch(handleUserGenerateVerse());
       dispatch(
@@ -66,7 +68,7 @@ const VersePage = ({ user, userStats }) => {
         })
       );
     }
-  }, []);
+  }, [verse]);
 
   // check if user has already saved the generated verse within the User Collection
   let userAlreadySavedVerse;
@@ -78,7 +80,7 @@ const VersePage = ({ user, userStats }) => {
     );
   }
 
-  console.log(userAlreadySavedVerse);
+  // console.log(userAlreadySavedVerse);
 
   const handleReselect = () => {
     dispatch(resetVerse());
@@ -120,6 +122,8 @@ const VersePage = ({ user, userStats }) => {
       navigate('/');
     }
   }
+
+  // console.log(error);
 
   if (verse.length === 0) {
     return (

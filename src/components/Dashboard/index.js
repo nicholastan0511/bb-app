@@ -7,23 +7,29 @@ import VersePage from '../VersePage';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserInfo } from '../../reducers/userStatsReducer';
 import SavedVerses from './SavedVerses';
+import { resetVerse } from '../../reducers/verseReducer';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector((state) => state.user);
   const userStats = useSelector((state) => state.userStats);
+  const verse = useSelector((state) => state.verses);
   const dispatch = useDispatch();
 
-  console.log(userStats);
+  // console.log(userStats);
 
   useEffect(() => {
-    console.log(location.pathname);
+    console.log(location.pathname, verse);
+    if (verse && verse.verse) {
+      console.log('im called');
+      dispatch(resetVerse());
+    }
   }, [location]);
 
   useEffect(() => {
     if (user && user.token) {
-      console.log('im called');
+      // console.log('im called');
       dispatch(fetchUserInfo());
     }
     navigate('/dashboard/menu');

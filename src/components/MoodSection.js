@@ -9,7 +9,7 @@ const MoodSection = ({ moodList }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
-  console.log(user);
+  // console.log(user);
 
   const handleClick = async (mood) => {
     dispatch(fetchOneVerse(mood));
