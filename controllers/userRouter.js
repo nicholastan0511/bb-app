@@ -219,7 +219,26 @@ userRouter.post(
       user.history.push({ verseId: savedVerse._id, time });
       await user.save();
 
-      res.send({ ...savedVerse, time });
+      const {
+        book: book_,
+        verse: verse_,
+        text: text_,
+        mood: mood_,
+        _id,
+        userId,
+      } = savedVerse;
+
+      res.send({
+        verseId: {
+          book: book_,
+          verse: verse_,
+          text: text_,
+          mood: mood_,
+          _id,
+          userId,
+        },
+        time,
+      });
     } catch (err) {
       next(err);
     }
