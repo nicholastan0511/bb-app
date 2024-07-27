@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchOneVerse } from '../reducers/verseReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import topoSvg from '../assets/topography.svg';
 
 const MoodSection = ({ moodList }) => {
   const dispatch = useDispatch();
@@ -22,7 +23,8 @@ const MoodSection = ({ moodList }) => {
   return (
     <div
       id="mood-section"
-      className="transition-all duration-300 ease-linear h-screen flex flex-col justify-center items-center bg-stone-900 gap-20 snap-start grow overflow-y-auto"
+      className="transition-all duration-300 ease-linear h-screen flex flex-col justify-center items-center bg-stone-800 gap-20 snap-start grow overflow-y-auto p-10"
+      style={{ backgroundImage: `url(${topoSvg})` }}
     >
       <div className="bg-base-100 bg-opacity-50 p-10 text-white flex items-center gap-5 rounded-xl mt-10 lg:mt-0">
         <h1 className="text-5xl font-bold text-white-900">

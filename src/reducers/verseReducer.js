@@ -25,7 +25,8 @@ export const fetchOneVerse = (mood) => {
     } catch (err) {
       dispatch(
         setError({
-          message: err.response.data.error,
+          message: err.response ? err.response.data.error : null,
+          error: err.message,
           type: 'serverError',
         })
       );

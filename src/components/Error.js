@@ -6,7 +6,7 @@ const Error = ({ error }) => {
   return (
     <>
       {error.type === 'serverError' ? (
-        <ServerError message={error.message} />
+        <ServerError message={!error.message ? error.error : error.message} />
       ) : error.type === 'userError' ? (
         <UserError message={error.message} />
       ) : null}

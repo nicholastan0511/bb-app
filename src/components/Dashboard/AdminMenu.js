@@ -11,7 +11,7 @@ const AdminMenu = ({ userStats }) => {
     : null;
 
   return (
-    <div className="h-screen bg-stone-900 grow overflow-hidden flex items-end">
+    <div className="h-screen bg-stone-900 grow overflow-hidden flex items-end relative">
       {error && error.type === 'serverError' ? <Error error={error} /> : null}
       <div
         className={`border-2 border-b-0 border-stone-700 rounded-t-3xl w-full h-[97%] flex flex-col justify-around items-center p-10 gap-5`}

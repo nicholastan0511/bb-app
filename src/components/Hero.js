@@ -6,7 +6,6 @@ import aiImg1 from '../assets/ai_img_1.jpg';
 import aiImg2 from '../assets/ai_img_2.jpg';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
-import bgImg from '../assets/bg.jpg';
 import topoSvg from '../assets/topography.svg';
 
 const Hero = () => {
