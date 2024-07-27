@@ -7,6 +7,7 @@ import VersePage from '../VersePage';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserInfo } from '../../reducers/userStatsReducer';
 import SavedVerses from './SavedVerses';
+import History from './History/index';
 import { resetVerse } from '../../reducers/verseReducer';
 
 const Dashboard = () => {
@@ -17,7 +18,7 @@ const Dashboard = () => {
   const verse = useSelector((state) => state.verses);
   const dispatch = useDispatch();
 
-  // console.log(userStats);
+  console.log(userStats);
 
   useEffect(() => {
     console.log(location.pathname, verse);
@@ -56,6 +57,10 @@ const Dashboard = () => {
               notes={userStats.notes}
             />
           }
+        />{' '}
+        <Route
+          path="/history"
+          element={<History history={userStats.history} />}
         />
       </Routes>
     </section>

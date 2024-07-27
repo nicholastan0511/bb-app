@@ -6,6 +6,7 @@ import savedSvg from '../../assets/saved.svg';
 // import noteSvg from '../../assets/note.svg';
 import bibleSvg from '../../assets/bible.svg';
 import logoutSvg from '../../assets/logout.svg';
+import clockSvg from '../../assets/clock.svg';
 
 import { useDispatch } from 'react-redux';
 import { signOut } from '../../reducers/userReducer';
@@ -29,6 +30,7 @@ const Navbar = ({ user }) => {
     else if (currentPath === '/dashboard/verse') setActive('versegenerator');
     else if (currentPath === '/dashboard/saved_verses')
       setActive('saved_verses');
+    else if (currentPath === '/dashboard/history') setActive('history');
     else setActive(null);
   }, [location]);
 
@@ -48,7 +50,12 @@ const Navbar = ({ user }) => {
           path="/dashboard/saved_verses"
           active={active === 'saved_verses' ? true : false}
         />
-        {/* <Link text={'Notes'} icon={noteSvg} /> */}
+        <Link
+          text={'History'}
+          icon={clockSvg}
+          path="/dashboard/history"
+          active={active === 'history' ? true : false}
+        />
         <Link
           text={'Verse Generator'}
           icon={bibleSvg}
