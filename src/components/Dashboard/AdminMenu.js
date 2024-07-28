@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Stats, { StatUser } from './StatComponent';
 import Error from '../Error';
 import { useSelector } from 'react-redux';
 
 const AdminMenu = ({ userStats }) => {
   const error = useSelector((state) => state.error);
+  const [todayHistory, setTodayHistory] = useState(null);
 
   const savedVersesLength = userStats.savedVerses
     ? userStats.savedVerses.length
     : null;
+
+  // Helper function to check if a date is today
+  const isToday = (date) => {
+    const today = new Date();
+    return (
+      date.getUTCFullYear() === today.getUTCFullYear() &&
+      date.getUTCMonth() === today.getUTCMonth() &&
+      date.getUTCDate() === today.getUTCDate()
+    );
+  };
+
+  // Function to filter history for the current day
+  const filterVersesForToday = (userStats) => {
+    const todayHistory = userStats.history.filter((item) =>
+      isToday(new Date(item.time))
+    );
+
+    return todayHistory;
+  };
+
+  useEffect(() => {
+    // only set today's history when userStats data is available
+    if (userStats && userStats.history) {
+      setTodayHistory(filterVersesForToday(userStats));
+    }
+  }, [userStats]);
 
   return (
     <div className="h-screen bg-stone-900 grow overflow-hidden flex items-end">
@@ -20,7 +47,7 @@ const AdminMenu = ({ userStats }) => {
         <div className="grid [grid-template-columns:repeat(auto-fit,minmax(500px,1fr))] [grid-auto-rows: 380px] gap-20 w-full">
           <Stats
             title="Verse Generated Today"
-            value={userStats.generatedVerseCount}
+            value={todayHistory ? todayHistory.length : null}
             desc="21% increase from yesterday"
           />
           <Stats
