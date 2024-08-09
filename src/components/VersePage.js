@@ -57,7 +57,7 @@ const VersePage = ({ user, userStats }) => {
 
       // console.log(timeISO);
 
-      dispatch(handleUserGenerateVerse());
+      // dispatch(handleUserGenerateVerse());
       dispatch(
         handleUserAddHistory({
           book: verse.book,

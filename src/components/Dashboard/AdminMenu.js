@@ -7,6 +7,7 @@ const AdminMenu = ({ userStats }) => {
   const error = useSelector((state) => state.error);
   const [todayHistory, setTodayHistory] = useState(null);
 
+  // get saved verses length
   const savedVersesLength = userStats.savedVerses
     ? userStats.savedVerses.length
     : null;
@@ -30,8 +31,8 @@ const AdminMenu = ({ userStats }) => {
     return todayHistory;
   };
 
+  // only set today's history when userStats data is available
   useEffect(() => {
-    // only set today's history when userStats data is available
     if (userStats && userStats.history) {
       setTodayHistory(filterVersesForToday(userStats));
     }
@@ -40,7 +41,7 @@ const AdminMenu = ({ userStats }) => {
   return (
     <div className="h-screen bg-stone-900 grow overflow-hidden flex items-end">
       <div
-        className={`border-2 border-b-0 border-stone-700 rounded-t-3xl w-full h-[97%] flex flex-col justify-around items-center p-10 gap-5`}
+        className={`border-2 border-b-0 border-stone-700 rounded-t-3xl w-full h-[97%] flex flex-col justify-around items-center p-10 gap-5 relative`}
       >
         {error && error.type === 'serverError' ? <Error error={error} /> : null}
         <h1 className="text-3xl font-semibold self-start">Dashboard</h1>
@@ -55,16 +56,8 @@ const AdminMenu = ({ userStats }) => {
             value={savedVersesLength}
             desc="21% increase from yesterday"
           />
-          <Stats
-            title="Verse Generated Today"
-            value={0}
-            desc="21% increase from yesterday"
-          />
-          <Stats
-            title="Verse Generated Today"
-            value={0}
-            desc="21% increase from yesterday"
-          />
+          <Stats title="TBF" value={0} desc="21% increase from yesterday" />
+          <Stats title="TBF" value={0} desc="21% increase from yesterday" />
         </div>
         <StatUser />
       </div>

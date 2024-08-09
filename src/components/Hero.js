@@ -36,7 +36,7 @@ const Hero = () => {
     >
       <div className="flex items-center sm:flex-col sm:justify-center lg:flex-row-reverse lg:justify-around p-32 gap-20 relative">
         <div className="navbar absolute top-10 z-49 flex justify-between px-20">
-          <a className="btn btn-ghost lg:text-md sm:text-xl uppercase font-extrabold">
+          <a className="btn btn-ghost lg:text-md sm:text-xl uppercase font-bold">
             MoodVerse
           </a>
           <div className="gap-5">
